@@ -7,13 +7,16 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D fisica;
     public int fuerza,desplazamiento,rotacion;
     public GameObject imagen;
-
+    public Animator Personaje, CoheteDerecho, CoheteIzquierdo;
     static int MaxRotIzquierda = 38, MaxRotaDerecha = -MaxRotIzquierda; //la maxima rotacion que tiene el Jetpack
 
     // Start is called before the first frame update
     void Start()
     {
         fisica = GetComponent<Rigidbody2D>();
+        Personaje = gameObject.transform.GetChild(0).GetComponent<Animator>();
+        CoheteDerecho = gameObject.transform.GetChild(0).gameObject.transform.GetChild(0).GetComponent<Animator>();
+        CoheteIzquierdo = gameObject.transform.GetChild(0).gameObject.transform.GetChild(1).GetComponent<Animator>();
     }
 
 
@@ -22,7 +25,12 @@ public class PlayerController : MonoBehaviour
     {
         //cuando preciona alguna palanca hace fuerza hacia arriba
         if (Input.GetKey("a") || Input.GetKey("d"))
+        {
             fisica.AddRelativeForce(transform.up * fuerza * Time.deltaTime, ForceMode2D.Impulse);
+            CoheteDerecho.SetTrigger("isFlying");
+            CoheteIzquierdo.SetTrigger("isFlying");
+
+        }
 
         if (Input.GetKey("a"))
         {
@@ -51,6 +59,7 @@ public class PlayerController : MonoBehaviour
             imagen.transform.Rotate(new Vector3(0, 0, -rotacion/3 * Time.deltaTime));
 
     }
+
 
 
 
