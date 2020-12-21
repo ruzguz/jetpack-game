@@ -5,48 +5,55 @@ using UnityEngine;
 public class MapController : MonoBehaviour
 {
     //public GameObject Obstaculo;
-    public int velocidad;
+    public int velocidadUp,VelocidadDown,puntoDeAparicion;
+    public float velocidadTransparencia, tamanoMaximo, alturaMaxima, alturaMin, velocidadCrecimiento;
 
     public GameObject Obstaculo1, Obstaculo2, Obstaculo3;
-    int aux1=0, aux2=0, aux3=0;
+    int aux1 = 0;
+    int primerPlano = 1, segundoPlano = 0, puntoRetorno = 6;
+
+
+    //La velocidad de transparencia es igual distancia/100
+    //distancia es igual a punto de aparicion menos altura maxima
+
     // Update is called once per frame
+    void Start()
+    {
+    }
     void Update()
     {
-
-        MoverObstaculo(Obstaculo1,aux1);aux1 = 1;
-        /*if (Obstaculo1.transform.position.y >= 0 && aux2 == 0)
-        {
-            MoverObstaculo(Obstaculo2,aux2);
-            aux2 = 1;    
-        }
-        if (Obstaculo2.transform.position.y >= -1 && aux3==0)
-        {
-            MoverObstaculo(Obstaculo3,aux3);
-            aux3 = 1;
-        }*/
+        velocidadTransparencia = ((255/(Mathf.Abs(alturaMaxima - puntoDeAparicion+2)))/100);
+        MoverObstaculo(Obstaculo1);
     }
 
-    public void MoverObstaculo(GameObject Obstaculo, int aux){
-        if (Obstaculo.transform.position.z == 0) //esta en segundo plano 
+    public void MoverObstaculo(GameObject Obstaculo){
+        if (Obstaculo.transform.position.z == segundoPlano) //esta en segundo plano 
         {
-            if (Obstaculo.transform.position.y < 4.5f)
-                Obstaculo.transform.Translate(new Vector3(0, 1, 0) * Time.deltaTime * velocidad * 1f);
-            if (Obstaculo.transform.localScale.x < 4)
-                Obstaculo.transform.localScale += new Vector3(1.05f, 1.05f, 0) * Time.deltaTime;
-            if (Obstaculo.transform.position.y >= 4.5f && Obstaculo1.transform.localScale.x >= 4) //llego al punto alto y se prepara que entre al primer plano
+            if (Obstaculo.transform.position.y < puntoRetorno ) //llego al punto alto y se prepara que entre al primer plano
+            { 
+                Obstaculo.transform.Translate(Vector3.up * Time.deltaTime * velocidadUp);
+                if (Obstaculo1.GetComponent<SpriteRenderer>().color.a < 0.8)
+                Obstaculo.GetComponent<SpriteRenderer>().color += new Color(0,0,0,velocidadTransparencia*Time.deltaTime*velocidadUp);
+            }
+
+            if (Obstaculo.transform.localScale.x < tamanoMaximo)
+                Obstaculo.transform.localScale += new Vector3(velocidadCrecimiento, velocidadCrecimiento, 0) * Time.deltaTime;
+            if (Obstaculo.transform.position.y >= alturaMaxima && Obstaculo1.transform.localScale.x >= tamanoMaximo) 
             {
                 Obstaculo.transform.position = new Vector3(Obstaculo1.transform.position.x, Obstaculo1.transform.position.y, 1); //Mueve el objeto a Z=1
-                Obstaculo.transform.localScale = new Vector3(4, 4, 0);
+                Obstaculo.transform.localScale = new Vector3(tamanoMaximo, tamanoMaximo, 0);
+                Obstaculo.GetComponent<SpriteRenderer>().color = new Color(Obstaculo.GetComponent<SpriteRenderer>().color.r, Obstaculo.GetComponent<SpriteRenderer>().color.g, Obstaculo.GetComponent<SpriteRenderer>().color.b, 1);
             }
         }
-        if (Obstaculo.transform.position.z == 1) //esta en primer plano
+        if (Obstaculo.transform.position.z == primerPlano) //esta en primer plano
         {
-            Obstaculo.transform.Translate(Vector3.down * Time.deltaTime * velocidad);
-            if (Obstaculo.transform.position.y <= -6)
+            Obstaculo.transform.Translate(Vector3.down * Time.deltaTime * VelocidadDown);
+            if (Obstaculo.transform.position.y <= alturaMin)
             {
-                Obstaculo.transform.position = new Vector3(Random.Range(-2.6f, 2.6f), -6, 0); //Mueve el objeto a Z=0
+                Obstaculo.transform.position = new Vector3(Random.Range(-2.6f, 2.6f), puntoDeAparicion, 0); //Mueve el objeto a Z=0 e inicializa para volver a empezar
                 Obstaculo.transform.localScale = new Vector3(1, 1, 0);
-                aux = 0;
+                Obstaculo.GetComponent<SpriteRenderer>().color = new Color(Obstaculo.GetComponent<SpriteRenderer>().color.r, Obstaculo.GetComponent<SpriteRenderer>().color.g, Obstaculo.GetComponent<SpriteRenderer>().color.b, 0);
+
             }
         }
     }
