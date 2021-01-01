@@ -42,4 +42,16 @@ public class GameManager : MonoBehaviour
         Debug.Log("PAUSE");
     }
 
+    // Hide puse menu and resume the game
+    public void ResumeGame() 
+    {
+        Debug.Log("RESUME");
+    }
+
+    // Ends game and go to main menu 
+    public void ExitGame()
+    {
+        Debug.Log("EXIT GAME");
+    }
+
 }
