@@ -10,6 +10,10 @@ public class PlayerController : MonoBehaviour
     public Animator Personaje, CoheteDerecho, CoheteIzquierdo;
     static int MaxRotIzquierda = 38, MaxRotaDerecha = -MaxRotIzquierda; //la maxima rotacion que tiene el Jetpack
 
+    // jetpack rocket flags
+    private bool _leftRocketOn, _rightRocketOn = false;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -60,6 +64,28 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    // Activate/Deactivate Jetpack Rockets
+    public void ActivateLeftRocket()
+    {
+        this._leftRocketOn = true;
+        Debug.Log("Left Rocket Running");
+    }
+
+    public void DeactivateLeftRocket() {
+        this._leftRocketOn = false;
+        Debug.Log("Left Rocket Off");
+    }
+
+    public void ActivateRightRocket() 
+    {
+        this._rightRocketOn = true;
+        Debug.Log("Right Rocket Running");
+    }
+
+    public void DeactivateRightRocket() 
+    {
+        this._rightRocketOn = false;
+    }
 
 
 
