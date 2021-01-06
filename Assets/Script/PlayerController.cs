@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     public Animator Personaje, CoheteDerecho, CoheteIzquierdo;
     static int MaxRotIzquierda = 38, MaxRotaDerecha = -MaxRotIzquierda; //la maxima rotacion que tiene el Jetpack
 
+    public int posMin;
+
     // jetpack rocket flags
 
 
@@ -46,6 +48,12 @@ public class PlayerController : MonoBehaviour
 
         //si el personaje esta abajo entonces sube activando los cohetes hasta 1/4 de la pantalla 
         //si el personaje no ha despegado (despegue==0) entonces 
+        if (transform.position.y < posMin)
+        {
+            fisica.AddRelativeForce(transform.up * fuerza * Time.deltaTime, ForceMode2D.Impulse);
+
+            IniciarCoheteIzquierdo();IniciarCoheteDerecho();
+        }
 
     }
 
