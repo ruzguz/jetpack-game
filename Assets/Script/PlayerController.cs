@@ -11,8 +11,8 @@ public class PlayerController : MonoBehaviour
     static int MaxRotIzquierda = 38, MaxRotaDerecha = -MaxRotIzquierda; //la maxima rotacion que tiene el Jetpack
 
     public int posMin;
-
-    // jetpack rocket flags
+    public float tiempoParticula;
+    public GameObject ParticulaIzq, ParticulaDer;
 
 
     // Start is called before the first frame update
@@ -47,13 +47,14 @@ public class PlayerController : MonoBehaviour
             imagen.transform.Rotate(new Vector3(0, 0, -rotacion / 3 * Time.deltaTime));
 
         //si el personaje esta abajo entonces sube activando los cohetes hasta 1/4 de la pantalla 
-        //si el personaje no ha despegado (despegue==0) entonces 
         if (transform.position.y < posMin)
         {
             fisica.AddRelativeForce(transform.up * fuerza * Time.deltaTime, ForceMode2D.Impulse);
-
             IniciarCoheteIzquierdo();IniciarCoheteDerecho();
         }
+
+
+        
 
     }
 
@@ -76,4 +77,36 @@ public class PlayerController : MonoBehaviour
             //rota en sentido del contrario al reloj
             imagen.transform.Rotate(new Vector3(0, 0, rotacion* Time.deltaTime));
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Limite")
+        //Sistema de particulas chulas
+        {
+            if (collision.gameObject.name == "LimiteIzquierdo")
+            {
+                ParticulaIzq.SetActive(true);
+                StartCoroutine(Particulas(ParticulaIzq));                                  
+
+            }
+            if (collision.gameObject.name == "LimiteDerecho")
+            {
+                ParticulaDer.SetActive(true);
+                StartCoroutine(Particulas(ParticulaDer));
+            }
+            //ParticulaChoque.transform.position =(collision.otherCollider.gameObject.transform.position);
+
+        }
+    }
+
+
+    IEnumerator Particulas(GameObject Particula)                                           //0.25 de espera por la animacion y el resto para el parpadeo
+    {
+        for (float tiempo = Time.time; Time.time - tiempo <tiempoParticula;)                             //tiempo que tarda
+            yield return null; //esto significa no hacer nada
+        Particula.SetActive(false);
+        yield return null;
+
+    }
 }
+
