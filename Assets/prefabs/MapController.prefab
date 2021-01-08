@@ -43,7 +43,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b070704377b28b4f8fde83f5ab9ba0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocidad: 4
+  velocidadUp: 2
+  VelocidadDown: 5
+  puntoDeAparicion: 0
+  velocidadTransparencia: 0.3
+  tamanoMaximo: 2
+  alturaMaxima: 6
+  alturaMin: -6
+  velocidadCrecimiento: 0.3
   Obstaculo1: {fileID: 0}
   Obstaculo2: {fileID: 0}
   Obstaculo3: {fileID: 0}

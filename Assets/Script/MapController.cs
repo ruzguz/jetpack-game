@@ -5,7 +5,12 @@ using UnityEngine;
 public class MapController : MonoBehaviour
 {
     //public GameObject Obstaculo;
-    public int velocidadUp,VelocidadDown,puntoDeAparicion;
+    //VelocidadUp es la velocidad que tiene el meteoro cuando sube
+    //VelocidadDown es la velocidad que tiene el meteoro cuando baja
+    //puntoDeAparicion es el punto de la pantalla que el meteoro aparece
+    //VelocidadJugador es la velocidad que va el jugador y acelera los meteoros para dar la sensacion que va mas rapido
+
+    public int velocidadUp,VelocidadDown,puntoDeAparicion, velocidadJugador;
     public float velocidadTransparencia, tamanoMaximo, alturaMaxima, alturaMin, velocidadCrecimiento;
 
     public GameObject Obstaculo1, Obstaculo2, Obstaculo3;
