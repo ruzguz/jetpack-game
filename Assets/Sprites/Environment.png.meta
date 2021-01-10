@@ -5,6 +5,12 @@ TextureImporter:
   - first:
       213: -2753597471096352698
     second: L-Beam
+  - first:
+      213: -446867404522521166
+    second: Beam
+  - first:
+      213: 5089713165793692188
+    second: PauseDevice
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -124,7 +130,7 @@ TextureImporter:
         width: 32
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -132,6 +138,48 @@ TextureImporter:
       bones: []
       spriteID: 64053e070b149c9d0800000000000000
       internalID: -2753597471096352698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Beam
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 101
+        width: 32
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2bdfbb396786cc9f0800000000000000
+      internalID: -446867404522521166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseDevice
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 64
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1a03c7682b42a640800000000000000
+      internalID: 5089713165793692188
       vertices: []
       indices: 
       edges: []
