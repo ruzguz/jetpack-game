@@ -10,11 +10,11 @@ public class GameManager : MonoBehaviour
     public static GameManager sharedInstance;
     
     // UI vars
-    private 
+    private Animator _pauseAnimator; 
 
     void Awake() 
     {
-
+        
     }
 
     // Start is called before the first frame update
@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this);
         }
+
+        _pauseAnimator = GameObject.Find("PausePanel").GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -39,12 +41,14 @@ public class GameManager : MonoBehaviour
     // Pause game and show pause menu
     public void PauseGame()
     {
+        _pauseAnimator.SetBool("pauseGame", true);
         Debug.Log("PAUSE");
     }
 
     // Hide puse menu and resume the game
     public void ResumeGame() 
     {
+        _pauseAnimator.SetBool("pauseGame", false);
         Debug.Log("RESUME");
     }
 
