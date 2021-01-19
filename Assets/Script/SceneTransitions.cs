@@ -5,8 +5,31 @@ using UnityEngine.SceneManagement;
 
 public class SceneTransitions : MonoBehaviour
 {
+
+    // General vars
+    public bool makeTransition;
     public string sceneName;
     private Animator transitionAnimator;
+
+    // Delegate to run method when the scene is loaded 
+    private void OnEnable() 
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode) 
+    {
+
+        if (makeTransition) 
+        {
+            Debug.Log("Scene Loaded");
+            runMoveAnimation();
+        }
+
+    }
+    private void OnDisable() 
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
 
     private void Awake() 
     {
@@ -21,6 +44,11 @@ public class SceneTransitions : MonoBehaviour
     public void runTransitionAnimation()
     {
         transitionAnimator.SetTrigger("makeTransition");
+    }
+
+    public void runMoveAnimation() 
+    {
+        transitionAnimator.SetTrigger("move");
     }
 
 }
