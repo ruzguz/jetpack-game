@@ -5,11 +5,14 @@ using UnityEngine;
 public class SocialController : MonoBehaviour
 {
 
-    private string RUZGUZ_IG = "https://www.instagram.com/_ruzguz/";
+    private string INSTAGRAM_URL = "https://www.instagram.com";
 
-    public void OpenRuzguzIG()
+
+    public void OpenIG(string user)
     {
-        Application.OpenURL(RUZGUZ_IG);
+        string url = string.Format("{0}/{1}", INSTAGRAM_URL, user);
+        Debug.Log(url);
+        Application.OpenURL(url);
     }
 
 }
