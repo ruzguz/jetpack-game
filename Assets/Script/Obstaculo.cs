@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class Obstaculo : MonoBehaviour
 {
+    //VelocidadUp es la velocidad que tiene el obstaculo cuando sube
+    //VelocidadDown es la velocidad que tiene el obstaculo cuando baja
+    //puntoDeAparicion es el punto de la pantalla que el obstaculo aparece
+    //Direccion es para el movimiento lateral del obstaculo 0 si va hacia la derecha y 1 si va hacia la izquierda
 
-    //VelocidadUp es la velocidad que tiene el meteoro cuando sube
-    //VelocidadDown es la velocidad que tiene el meteoro cuando baja
-    //puntoDeAparicion es el punto de la pantalla que el meteoro aparece
-    //VelocidadJugador es la velocidad que va el jugador y acelera los meteoros para dar la sensacion que va mas rapido
-    //direccion es para el kovimiento lateral del obstaculo 0 si va hacia la derecha y 1 si va hacia la izquierda
-
-    public int VelocidadDown, VelocidadLateral, puntoDeAparicion, velocidadJugador,Direccion;
-    public float velocidadTransparencia, tamanoMaximo, alturaMaxima, alturaMin, velocidadCrecimiento, PuntoD,PuntoI;
+    public int VelocidadDown, VelocidadLateral,Direccion;
+    public float puntoDeAparicion,velocidadTransparencia, tamanoMaximo, alturaMaxima, alturaMin, velocidadCrecimiento, PuntoD,PuntoI;
 
     int primerPlano, segundoPlano, puntoRetorno, velocidadUp;
 
@@ -24,7 +22,6 @@ public class Obstaculo : MonoBehaviour
         segundoPlano = 0;
         puntoRetorno = 6;
         velocidadUp = VelocidadDown / 2;
-
     }
 
     private void OnEnable()
@@ -32,7 +29,6 @@ public class Obstaculo : MonoBehaviour
         transform.position = new Vector3(transform.position.x, puntoDeAparicion, 0); //Mueve el objeto a Z=0 e inicializa para volver a empezar
         transform.localScale = new Vector3(1, 1, 0);
         GetComponent<SpriteRenderer>().color = new Color(GetComponent<SpriteRenderer>().color.r, GetComponent<SpriteRenderer>().color.g, GetComponent<SpriteRenderer>().color.b, 0);
-
     }
 
     void Update()
@@ -48,7 +44,6 @@ public class Obstaculo : MonoBehaviour
                 if (GetComponent<SpriteRenderer>().color.a < 0.8)
                     GetComponent<SpriteRenderer>().color += new Color(0, 0, 0, velocidadTransparencia * Time.deltaTime * velocidadUp);
             }
-
             if (transform.localScale.x < tamanoMaximo)
                 transform.localScale += new Vector3(velocidadCrecimiento, velocidadCrecimiento, 0) * Time.deltaTime;
             if (transform.position.y >= alturaMaxima && transform.localScale.x >= tamanoMaximo)
@@ -80,7 +75,6 @@ public class Obstaculo : MonoBehaviour
             }
             else Direccion = 1; //va en direccion derecha y llego al punto maximo por lo que cambia de direccion
         }
-
         if (Direccion == 1)
         {//el obstaculo va hacia la izquieda
             if (transform.position.x > PuntoI) //no ha llegado al punto de la derecha
@@ -89,8 +83,5 @@ public class Obstaculo : MonoBehaviour
             }
             else Direccion = 0; //va en direccion derecha y llego al punto maximo por lo que cambia de direccion
         }
-
     }
-
-
-    }
+}

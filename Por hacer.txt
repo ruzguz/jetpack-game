@@ -1,3 +1,5 @@
-corregir la salida de los obstaculos
-	Posible solucion, asignar a cada obstaculo su Y inicial
+Corregir la velocidad de transparencia en los obstaculos para dar un mejor efecto en su aparicion
+	Posible solucion, asignar transparencia con respecto a la trayectoria faltante hasta su punto maximo
 
+Arreglar Mapcontroller para hacer escalable la cantidad de bloques de obstaculos sin necesidad de modificar el codigo
+	Posible solucion, agregar los bloques de obstaculos como hijos de MapController, i seria un numero aleatorio de 0 hasta el numero de hijos menos 1
