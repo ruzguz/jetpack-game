@@ -4,66 +4,68 @@ using UnityEngine;
 
 public class MapController : MonoBehaviour
 {
-    //public GameObject Obstaculo;
-    //VelocidadUp es la velocidad que tiene el meteoro cuando sube
-    //VelocidadDown es la velocidad que tiene el meteoro cuando baja
-    //puntoDeAparicion es el punto de la pantalla que el meteoro aparece
-    //VelocidadJugador es la velocidad que va el jugador y acelera los meteoros para dar la sensacion que va mas rapido
-
-    public int velocidadUp,VelocidadDown,puntoDeAparicion, velocidadJugador;
-    public float velocidadTransparencia, tamanoMaximo, alturaMaxima, alturaMin, velocidadCrecimiento;
-
-    public GameObject Obstaculo1, Obstaculo2, Obstaculo3;
-    int aux1 = 0;
-    int primerPlano = 1, segundoPlano = 0, puntoRetorno = 6;
-
-
-    //La velocidad de transparencia es igual distancia/100
-    //distancia es igual a punto de aparicion menos altura maxima
-
-    // Update is called once per frame
-    void Start()
-    {
-    }
+    public GameObject Bloque1, Bloque2, Bloque3, Bloque4, Bloque5, Bloque6, Bloque7;
+    GameObject BloqueActual;
+    int i=0;
     void Update()
     {
-        velocidadTransparencia = ((255/(Mathf.Abs(alturaMaxima - puntoDeAparicion+2)))/100);
-        MoverObstaculo(Obstaculo1);
-    }
-
-    public void MoverObstaculo(GameObject Obstaculo){
-        if (Obstaculo.transform.position.z == segundoPlano) //esta en segundo plano 
+        switch (i)
         {
-            if (Obstaculo.transform.position.y < puntoRetorno ) //llego al punto alto y se prepara que entre al primer plano
-            { 
-                Obstaculo.transform.Translate(Vector3.up * Time.deltaTime * velocidadUp);
-                if (Obstaculo1.GetComponent<SpriteRenderer>().color.a < 0.8)
-                Obstaculo.GetComponent<SpriteRenderer>().color += new Color(0,0,0,velocidadTransparencia*Time.deltaTime*velocidadUp);
-            }
+            case 0:
+                i++;
+                break;
+            case 1:
+                ActivarBloque(Bloque1);
+                break;
+            case 2:
+                ActivarBloque(Bloque2);
+                break;
+            case 3:
+                ActivarBloque(Bloque3);
+                break;
+            case 4:
+                ActivarBloque(Bloque4);
+                break;
+            case 5:
+                ActivarBloque(Bloque5);
+                break;
+            case 6:
+                ActivarBloque(Bloque6);
+                break;
+            case 7:
+                ActivarBloque(Bloque7);
+                break;
+        }
 
-            if (Obstaculo.transform.localScale.x < tamanoMaximo)
-                Obstaculo.transform.localScale += new Vector3(velocidadCrecimiento, velocidadCrecimiento, 0) * Time.deltaTime;
-            if (Obstaculo.transform.position.y >= alturaMaxima && Obstaculo1.transform.localScale.x >= tamanoMaximo) 
+    }
+       
+    
+
+    bool VerificarBloque(GameObject Bloque) //Verificar si el bloque tiene algun hijo activo
+    {
+        for (int j = 0; j < Bloque.transform.childCount; j++)
+        {
+            if (!Bloque.transform.GetChild(j).gameObject.activeInHierarchy)
             {
-                Obstaculo.transform.position = new Vector3(Obstaculo1.transform.position.x, Obstaculo1.transform.position.y, 1); //Mueve el objeto a Z=1
-                Obstaculo.transform.localScale = new Vector3(tamanoMaximo, tamanoMaximo, 0);
-                Obstaculo.GetComponent<SpriteRenderer>().color = new Color(Obstaculo.GetComponent<SpriteRenderer>().color.r, Obstaculo.GetComponent<SpriteRenderer>().color.g, Obstaculo.GetComponent<SpriteRenderer>().color.b, 1);
+                Bloque.SetActive(false);
+                return true; //si no tiene hijos devuelve true
             }
         }
-        if (Obstaculo.transform.position.z == primerPlano) //esta en primer plano
-        {
-            Obstaculo.transform.Translate(Vector3.down * Time.deltaTime * VelocidadDown);
-            if (Obstaculo.transform.position.y <= alturaMin)
-            {
-                Obstaculo.transform.position = new Vector3(Random.Range(-2.6f, 2.6f), puntoDeAparicion, 0); //Mueve el objeto a Z=0 e inicializa para volver a empezar
-                Obstaculo.transform.localScale = new Vector3(1, 1, 0);
-                Obstaculo.GetComponent<SpriteRenderer>().color = new Color(Obstaculo.GetComponent<SpriteRenderer>().color.r, Obstaculo.GetComponent<SpriteRenderer>().color.g, Obstaculo.GetComponent<SpriteRenderer>().color.b, 0);
-
-            }
-        }
+        return false; //si tiene hijos devuelve false
     }
 
+    void ActivarBloque(GameObject Bloque)
+    {
+        Bloque.SetActive(true);
+        if (VerificarBloque(Bloque) == true)
+        {//significa que el bloque no tienen hijos activos\
+            i++;
+        }
+        if (i > 7)
+            i = 0;
+    }
 }
+
 
 
 

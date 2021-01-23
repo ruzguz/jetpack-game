@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public int posMin;
     public float tiempoParticula;
     public GameObject ParticulaIzq, ParticulaDer;
+    public int MaxPosicion;
 
 
     // Start is called before the first frame update
@@ -30,7 +31,11 @@ public class PlayerController : MonoBehaviour
     {
         //cuando preciona alguna palanca hace fuerza hacia arriba, Impulso vertical
         if (Input.GetKey("a") || Input.GetKey("d"))
-            fisica.AddRelativeForce(transform.up * fuerza * Time.deltaTime, ForceMode2D.Impulse);
+        {
+            if (transform.position.y < MaxPosicion)
+                fisica.AddRelativeForce(transform.up * fuerza * Time.deltaTime, ForceMode2D.Force);
+                //gameObject.transform.Translate (Vector2.up * Time.deltaTime*fuerza);
+        }
 
         //Movimiento del Personaje
         if (Input.GetKey("a"))
@@ -49,12 +54,11 @@ public class PlayerController : MonoBehaviour
         //si el personaje esta abajo entonces sube activando los cohetes hasta 1/4 de la pantalla 
         if (transform.position.y < posMin)
         {
-            fisica.AddRelativeForce(transform.up * fuerza * Time.deltaTime, ForceMode2D.Impulse);
+            //gameObject.transform.Translate (Vector2.up * Time.deltaTime*fuerza);
+            fisica.AddRelativeForce(transform.up * fuerza * Time.deltaTime, ForceMode2D.Force);
             IniciarCoheteIzquierdo();IniciarCoheteDerecho();
         }
 
-
-        
 
     }
 
@@ -62,7 +66,7 @@ public class PlayerController : MonoBehaviour
     {
         CoheteDerecho.SetTrigger("isFlying");
         //cuanda preciona a se desplaza a la derecha
-        fisica.AddRelativeForce(transform.right * desplazamiento * Time.deltaTime, ForceMode2D.Impulse);
+        fisica.AddRelativeForce(transform.right * desplazamiento * Time.deltaTime, ForceMode2D.Force);
         if (imagen.transform.localRotation.z * 100 > MaxRotaDerecha)
             //rota en sentido del reloj
             imagen.transform.Rotate(new Vector3(0, 0, -rotacion * Time.deltaTime));
@@ -72,7 +76,7 @@ public class PlayerController : MonoBehaviour
     {
         //cuanda preciona a se desplaza a la izquierda
         CoheteIzquierdo.SetTrigger("isFlying");
-        fisica.AddRelativeForce(-transform.right* desplazamiento * Time.deltaTime, ForceMode2D.Impulse);
+        fisica.AddRelativeForce(-transform.right* desplazamiento * Time.deltaTime, ForceMode2D.Force);
         if (imagen.transform.localRotation.z* 100 < MaxRotIzquierda)
             //rota en sentido del contrario al reloj
             imagen.transform.Rotate(new Vector3(0, 0, rotacion* Time.deltaTime));
@@ -95,7 +99,6 @@ public class PlayerController : MonoBehaviour
                 StartCoroutine(Particulas(ParticulaDer));
             }
             //ParticulaChoque.transform.position =(collision.otherCollider.gameObject.transform.position);
-
         }
     }
 

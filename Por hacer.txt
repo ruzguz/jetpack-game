@@ -1,0 +1,3 @@
+corregir la salida de los obstaculos
+	Posible solucion, asignar a cada obstaculo su Y inicial
+
