@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -58,8 +57,6 @@ public class PlayerController : MonoBehaviour
             fisica.AddRelativeForce(transform.up * fuerza * Time.deltaTime, ForceMode2D.Force);
             IniciarCoheteIzquierdo();IniciarCoheteDerecho();
         }
-
-
     }
 
     void IniciarCoheteIzquierdo()
@@ -82,23 +79,21 @@ public class PlayerController : MonoBehaviour
             imagen.transform.Rotate(new Vector3(0, 0, rotacion* Time.deltaTime));
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)                                                                  //Ante una colision
     {
-        if (collision.gameObject.tag == "Limite")
-        //Sistema de particulas chulas
-        {
-            if (collision.gameObject.name == "LimiteIzquierdo")
+        if (collision.gameObject.tag == "Limite")                                                                           //Si colisiono con un limite...
+        {                                                                                                                   //Sistema de particulas chulas
+            if (collision.gameObject.name == "LimiteIzquierdo")                                                             //Si colisiono con el limite izquierdo                                         
             {
-                ParticulaIzq.SetActive(true);
-                StartCoroutine(Particulas(ParticulaIzq));                                  
+                ParticulaIzq.SetActive(true);                                                                               //Activar las particulas del lado izquierdo del casco
+                StartCoroutine(Particulas(ParticulaIzq));                                                                   //Empezar un hilo para mantener las particulas encendidas por un tiempo                          
 
             }
-            if (collision.gameObject.name == "LimiteDerecho")
+            if (collision.gameObject.name == "LimiteDerecho")                                                               //Si colisiono con el limite derecho
             {
-                ParticulaDer.SetActive(true);
-                StartCoroutine(Particulas(ParticulaDer));
+                ParticulaDer.SetActive(true);                                                                               //Activar las particulas del lado derecho del casco
+                StartCoroutine(Particulas(ParticulaDer));                                                                   //Empezar un hilo para mantener las particulas encendidas por un tiempo
             }
-            //ParticulaChoque.transform.position =(collision.otherCollider.gameObject.transform.position);
         }
     }
 

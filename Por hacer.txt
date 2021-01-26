@@ -3,3 +3,13 @@ Corregir la velocidad de transparencia en los obstaculos para dar un mejor efect
 
 Agregar obstaculos entre bloques de obstaculos
 	posible solucion:
+
+Agregar rotacion a los obstaculos
+
+
+Agregar puntuacion
+
+Agregar el golpe del personaje
+
+Buscar pagina de sonidos
+

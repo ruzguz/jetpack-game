@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 7962873512872824098}
   - component: {fileID: 7962873512872824099}
   - component: {fileID: 7962873512872824108}
+  - component: {fileID: -2649748396128507229}
   m_Layer: 0
-  m_Name: Obstaculo1
+  m_Name: ObstaculoMovil
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -95,16 +96,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0048033bd2448224dba83f8321dd302a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocidadUp: 1
-  VelocidadDown: 2
-  VelocidadLateral: 4
   puntoDeAparicion: 0
-  velocidadJugador: 0
-  Direccion: 0
-  velocidadTransparencia: 0.3
-  tamanoMaximo: 2
-  alturaMaxima: 6
-  alturaMin: -6
-  velocidadCrecimiento: 0.3
-  PuntoD: 2.3
-  PuntoI: -2.3
+  puntoD: 0
+  puntoI: 0
+  seMueveLateral: 0
+--- !u!58 &-2649748396128507229
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7962873512872824097}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.20496683

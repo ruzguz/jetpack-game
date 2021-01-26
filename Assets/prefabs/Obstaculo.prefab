@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2318268565833150484}
   - component: {fileID: 2318268565833150485}
   - component: {fileID: 2318268565833150490}
+  - component: {fileID: 7862998919850691165}
   m_Layer: 0
   m_Name: Obstaculo
   m_TagString: Untagged
@@ -95,12 +96,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0048033bd2448224dba83f8321dd302a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocidadUp: 2
-  VelocidadDown: 5
   puntoDeAparicion: 0
-  velocidadJugador: 0
-  velocidadTransparencia: 0.3
-  tamanoMaximo: 2
-  alturaMaxima: 6
-  alturaMin: -6
-  velocidadCrecimiento: 0.3
+  puntoD: 0
+  puntoI: 0
+  seMueveLateral: 0
+--- !u!58 &7862998919850691165
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2318268565833150487}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.20498958
