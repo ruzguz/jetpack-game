@@ -1,69 +1,46 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MapController : MonoBehaviour
 {
-    //public GameObject Obstaculo;
-    //VelocidadUp es la velocidad que tiene el meteoro cuando sube
-    //VelocidadDown es la velocidad que tiene el meteoro cuando baja
-    //puntoDeAparicion es el punto de la pantalla que el meteoro aparece
-    //VelocidadJugador es la velocidad que va el jugador y acelera los meteoros para dar la sensacion que va mas rapido
-
-    public int velocidadUp,VelocidadDown,puntoDeAparicion, velocidadJugador;
-    public float velocidadTransparencia, tamanoMaximo, alturaMaxima, alturaMin, velocidadCrecimiento;
-
-    public GameObject Obstaculo1, Obstaculo2, Obstaculo3;
-    int aux1 = 0;
-    int primerPlano = 1, segundoPlano = 0, puntoRetorno = 6;
-
-
-    //La velocidad de transparencia es igual distancia/100
-    //distancia es igual a punto de aparicion menos altura maxima
-
-    // Update is called once per frame
-    void Start()
-    {
+    int i;                                                                                          //i es un indice auxiliar para ver que bloque de obstaculoses el seleccionado
+    private void Start()                                                                            //Cuando inicia...
+    { 
+        i = Random.Range(0, transform.childCount);                                                  //Asigna un numero random a i entre 0 y el numero de hijos de MapController(los hijos son bloques de obstaculos)
     }
+
     void Update()
     {
-        velocidadTransparencia = ((255/(Mathf.Abs(alturaMaxima - puntoDeAparicion+2)))/100);
-        MoverObstaculo(Obstaculo1);
+        ActivarBloque(gameObject.transform.GetChild(i).gameObject);                                 //Activa el bloque con el indice i
     }
 
-    public void MoverObstaculo(GameObject Obstaculo){
-        if (Obstaculo.transform.position.z == segundoPlano) //esta en segundo plano 
-        {
-            if (Obstaculo.transform.position.y < puntoRetorno ) //llego al punto alto y se prepara que entre al primer plano
-            { 
-                Obstaculo.transform.Translate(Vector3.up * Time.deltaTime * velocidadUp);
-                if (Obstaculo1.GetComponent<SpriteRenderer>().color.a < 0.8)
-                Obstaculo.GetComponent<SpriteRenderer>().color += new Color(0,0,0,velocidadTransparencia*Time.deltaTime*velocidadUp);
-            }
-
-            if (Obstaculo.transform.localScale.x < tamanoMaximo)
-                Obstaculo.transform.localScale += new Vector3(velocidadCrecimiento, velocidadCrecimiento, 0) * Time.deltaTime;
-            if (Obstaculo.transform.position.y >= alturaMaxima && Obstaculo1.transform.localScale.x >= tamanoMaximo) 
-            {
-                Obstaculo.transform.position = new Vector3(Obstaculo1.transform.position.x, Obstaculo1.transform.position.y, 1); //Mueve el objeto a Z=1
-                Obstaculo.transform.localScale = new Vector3(tamanoMaximo, tamanoMaximo, 0);
-                Obstaculo.GetComponent<SpriteRenderer>().color = new Color(Obstaculo.GetComponent<SpriteRenderer>().color.r, Obstaculo.GetComponent<SpriteRenderer>().color.g, Obstaculo.GetComponent<SpriteRenderer>().color.b, 1);
-            }
-        }
-        if (Obstaculo.transform.position.z == primerPlano) //esta en primer plano
-        {
-            Obstaculo.transform.Translate(Vector3.down * Time.deltaTime * VelocidadDown);
-            if (Obstaculo.transform.position.y <= alturaMin)
-            {
-                Obstaculo.transform.position = new Vector3(Random.Range(-2.6f, 2.6f), puntoDeAparicion, 0); //Mueve el objeto a Z=0 e inicializa para volver a empezar
-                Obstaculo.transform.localScale = new Vector3(1, 1, 0);
-                Obstaculo.GetComponent<SpriteRenderer>().color = new Color(Obstaculo.GetComponent<SpriteRenderer>().color.r, Obstaculo.GetComponent<SpriteRenderer>().color.g, Obstaculo.GetComponent<SpriteRenderer>().color.b, 0);
-
-            }
-        }
+    void ActivarBloque(GameObject bloque)                                                           //funcion para activa el bloque de obstaculos
+    {
+        if (bloque.activeSelf == false)                                                             //Si el Bloque de obstaculos no esta activado...
+            bloque.SetActive(true);                                                                 //activa el bloque de obstaculos
+        if (VerificarBloque(bloque) == true)                                                        //si el bloque no tienen hijos activos...
+            i = Random.Range(0, transform.childCount);                                              //Asigna un nuevo valor a i
     }
+
+    bool VerificarBloque(GameObject bloque)                                                         //Verificar si el bloque tiene algun hijo activo
+    {
+        int aux=0, j;                                                                               //variable auxiliar para contar el numero de obstaculos activos en el bloque
+        for (j = 0; j < bloque.transform.childCount; j++)                                           //por cada obstaculo del bloque de obstaculos
+        {
+            if (bloque.transform.GetChild(j).gameObject.activeInHierarchy)                          //si el obstaculo esta activo...
+                aux++;                                                                              //suma uno a aux para contar los hijos activos
+        }
+        if (aux==0){                                                                                //si aux es igual a 0...(significa que no hay hijos activos)
+            bloque.SetActive(false);                                                                //El bloque se desactiva
+            for (j = 0; j < bloque.transform.childCount; j++)                                       //por cada hijo del bloque de obstaculos
+                bloque.transform.GetChild(j).gameObject.SetActive(true);                            //activar el hijo para un futuro uso cuando se vuelva a activar elbloque de obstaculos
+            return true;                                                                            //si no tiene hijos activos devuelve true
+        }
+        return false;                                                                               //si tiene hijos activos devuelve false
+    }
+
 
 }
+
 
 
 

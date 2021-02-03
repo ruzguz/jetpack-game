@@ -1,0 +1,15 @@
+Corregir la velocidad de transparencia en los obstaculos para dar un mejor efecto en su aparicion
+	Posible solucion, asignar transparencia con respecto a la trayectoria faltante hasta su punto maximo
+
+Agregar obstaculos entre bloques de obstaculos
+	posible solucion:
+
+Agregar rotacion a los obstaculos
+
+
+Agregar puntuacion
+
+Agregar el golpe del personaje
+
+Buscar pagina de sonidos
+
