@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     
     // UI vars
     private Animator _pauseAnimator; 
+    public int controls;
 
     void Awake() 
     {
@@ -30,6 +31,10 @@ public class GameManager : MonoBehaviour
         }
 
         _pauseAnimator = GameObject.Find("PausePanel").GetComponent<Animator>();
+
+        // Get Controls value
+        controls = PlayerPrefs.GetInt("controls");
+        Debug.Log(controls);
     }
 
     // Update is called once per frame
