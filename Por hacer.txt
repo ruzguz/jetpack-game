@@ -6,10 +6,12 @@ Agregar obstaculos entre bloques de obstaculos
 
 Agregar rotacion a los obstaculos
 
-
 Agregar puntuacion
 
 Agregar el golpe del personaje
 
 Buscar pagina de sonidos
 
+Corregir la escala de los obstaculos en segundo plano
+
+Agregar velocidad escalable al personaje

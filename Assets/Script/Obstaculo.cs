@@ -15,8 +15,8 @@ public class Obstaculo : MonoBehaviour
 
     const int primerPlano=1, segundoPlano=0;                                                                //variables que constantes para facilitar el entendimiento del codigo
 
-                                                                                                            //La velocidad de transparencia es igual distancia/100
-                                                                                                            //distancia es igual a punto de aparicion menos altura maxima
+    //La velocidad de transparencia es igual distancia/100
+    //distancia es igual a punto de aparicion menos altura maxima
     private void Start()
     {
         velocidadDown = 1;                                                                                  //Se dan valor a las variables
@@ -29,16 +29,15 @@ public class Obstaculo : MonoBehaviour
         else                                                                                                //Si el obstaculo no tiene movimiento lateral...
             puntoD = puntoI = 0;                                                                            //Se dan valor de 0 para prevenir errores        
 
-        velocidadCrecimiento = tamanoMaximo/(alturaMaxima-puntoDeAparicion);
-
-        //v                  = 2/(6-4.5)
-        //                   = 2/(1.5)
+        velocidadCrecimiento = tamanoMaximo / (alturaMaxima - puntoDeAparicion);
     }
 
     private void OnEnable()
     {
         transform.position = new Vector3(transform.position.x, puntoDeAparicion, 0);                        //Mueve el objeto a Z=0 
-        transform.localScale = new Vector3(0, 0, 0);                                                        //Convierte su escala en la adecuada para el segundo plano
+        //transform.localScale = new Vector3(0, 0, 0);                                                        //Convierte su escala en la adecuada para el segundo plano
+        transform.localScale = new Vector3(2, 2, 2);                                                        //Convierte su escala en la adecuada para el segundo plano
+
         GetComponent<SpriteRenderer>().color = new Color(GetComponent<SpriteRenderer>().color.r,            //El objecto se pone en su transparencia maxima
             GetComponent<SpriteRenderer>().color.g, GetComponent<SpriteRenderer>().color.b, 0);
     }
@@ -57,14 +56,12 @@ public class Obstaculo : MonoBehaviour
                     GetComponent<SpriteRenderer>().color += new Color(0, 0, 0, 
                         velocidadTransparencia * Time.deltaTime * velocidadUp);
             }
-            if (transform.localScale.x < tamanoMaximo)
 
-                //Distancia es igual a punto de aparicion - punto maximo = 6 
-                //Tamano de crecimiento = 2/6
+            /*if (transform.localScale.x < tamanoMaximo)
 
 
                 tamano = tamanoMaximo / (alturaMaxima - transform.position.y);
-                transform.localScale = new Vector3(tamano,tamano, 0) * Time.deltaTime; //Tamano es igual a la distancia que le falta
+                transform.localScale = new Vector3(tamano,tamano, 0) * Time.deltaTime; //Tamano es igual a la distancia que le falta*/
             if (transform.position.y >= alturaMaxima && transform.localScale.x >= tamanoMaximo)
             {
                 transform.position = new Vector3(transform.position.x, transform.position.y, 1);            //Mueve el objeto a Z=1
