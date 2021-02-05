@@ -13,7 +13,7 @@ public class MapController : MonoBehaviour
         ActivarBloque(gameObject.transform.GetChild(i).gameObject);                                 //Activa el bloque con el indice i
     }
 
-    void ActivarBloque(GameObject bloque)                                                           //funcion para activa el bloque de obstaculos
+    void ActivarBloque(GameObject bloque)                                                           //funcion para activar el bloque de obstaculos
     {
         if (bloque.activeSelf == false)                                                             //Si el Bloque de obstaculos no esta activado...
             bloque.SetActive(true);                                                                 //activa el bloque de obstaculos

@@ -15,3 +15,5 @@ Buscar pagina de sonidos
 Corregir la escala de los obstaculos en segundo plano
 
 Agregar velocidad escalable al personaje
+
+cambiar los obstaculos moviles por marcianos
