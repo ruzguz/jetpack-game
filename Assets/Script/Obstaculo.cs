@@ -9,7 +9,7 @@ public class Obstaculo : MonoBehaviour
     public bool seMueveLateral;                                                                             //SeMueveLateral determina si el obstaculo tiene desplazamiento lateral
                                                                                                             //velocidadDown es la velocidad de bajada y define el movimiento de subida y el movimiento lateral
     float velocidadDown, velocidadUp, velocidadLateral, direccion, velocidadTransparencia,                  //direccion es un auxiliar para determinar hacia donde se esta moviendo un obstaculo con movimiento lateral
-        tamanoMaximo, alturaMaxima, alturaMin;                                                              //velocidadTransparencia la rapidez que tiene para quitar la transparencia del objeto a medida que sube en el segundo plano
+        tamanoMaximo, alturaMaxima, alturaMin, velocidadRotacion;                                           //velocidadTransparencia la rapidez que tiene para quitar la transparencia del objeto a medida que sube en el segundo plano
                                                                                                             //velocidadCrecimiento es la rapidez con la que crece el objeto a medida que sube en el segundo plano
                                                                                                             //puntoD y puntoI son el punto derecho o izquierdo en el eje x donde los movimientos laterales deben llegar
 
@@ -27,23 +27,33 @@ public class Obstaculo : MonoBehaviour
         else                                                                                                //Si el obstaculo no tiene movimiento lateral...
             puntoD = puntoI = 0;                                                                            //Se dan valor de 0 para prevenir errores        
         velocidadTransparencia = ((255 / (Mathf.Abs(alturaMaxima - puntoDeAparicion + 2))) / 100);          //Calcula la velocidad en la que debe quitar la opacidad mientras sube 
+
+        if (Random.Range(0, 2)==0)
+            velocidadRotacion = Random.Range(50, 100);
+        else
+            velocidadRotacion = Random.Range(-50, -100);
+
     }
 
     private void OnEnable()
     {
+
         transform.position = new Vector3(transform.position.x, puntoDeAparicion, 0);                        //Mueve el objeto a Z=0 
         //transform.localScale = new Vector3(0, 0, 0);                                                      //Convierte su escala en la adecuada para el segundo plano
         transform.localScale = new Vector3(2, 2, 2);                                                        //Convierte su escala en la adecuada para el segundo plano
 
-        GetComponent<SpriteRenderer>().color = new Color(GetComponent<SpriteRenderer>().color.r,            
-            GetComponent<SpriteRenderer>().color.g, GetComponent<SpriteRenderer>().color.b, 0);             //El objecto se pone en su transparencia maxima
+                                                                                                            //El objecto se pone en su transparencia maxima
+        GetComponentInChildren<SpriteRenderer>().color = new Color(GetComponentInChildren<SpriteRenderer>().color.r,
+            GetComponentInChildren<SpriteRenderer>().color.g, GetComponentInChildren<SpriteRenderer>().color.b, 0);             
     }
 
     void Update()
     {
         if (!(puntoD == 0 && puntoI == 0))                                                                  //Si el Obstaculo tiene movimiento lateral...
             MovimientoLateral();                                                                            //llama la funcion para hacer movimiento lateral
-                  
+
+        transform.GetChild(0).transform.Rotate(new Vector3(0, 0, velocidadRotacion* Time.deltaTime));
+
         if (transform.position.z == segundoPlano)                                                           //esta en segundo plano 
         {
             SegundoPlano();                                                                                 //Codigo para el objeto en segundo plano
@@ -74,12 +84,12 @@ public class Obstaculo : MonoBehaviour
 
     void SegundoPlano()
     {
-        transform.GetComponent<CircleCollider2D>().enabled = false;                                            //Desabilita el boxcolider para evitar errores
+        transform.GetComponentInChildren<CircleCollider2D>().enabled = false;                                            //Desabilita el boxcolider para evitar errores
         if (transform.position.y < alturaMaxima)                                                            //si la posicion del obstaculo es menor a la altura maxima....
         {
             transform.Translate(Vector3.up * Time.deltaTime * velocidadUp);                                 //mover el obstaculo hacia arriba
-            if (GetComponent<SpriteRenderer>().color.a < 0.6)                                               //si el objeto tiene la tiene la transparencia menor a 0.6...
-                GetComponent<SpriteRenderer>().color += new Color(0, 0, 0,
+            if (GetComponentInChildren<SpriteRenderer>().color.a < 0.6)                                               //si el objeto tiene la tiene la transparencia menor a 0.6...
+                GetComponentInChildren<SpriteRenderer>().color += new Color(0, 0, 0,
                     velocidadTransparencia * Time.deltaTime * velocidadUp);                                 //reduce la transparencia
         }
 
@@ -92,8 +102,8 @@ public class Obstaculo : MonoBehaviour
         {
             transform.position = new Vector3(transform.position.x, transform.position.y, 1);            //Mueve el objeto a Z=1
             transform.localScale = new Vector3(tamanoMaximo, tamanoMaximo, 0);
-            GetComponent<SpriteRenderer>().color = new Color(GetComponent<SpriteRenderer>().color.r,
-                GetComponent<SpriteRenderer>().color.g, GetComponent<SpriteRenderer>().color.b, 1);
+            GetComponentInChildren<SpriteRenderer>().color = new Color(GetComponentInChildren<SpriteRenderer>().color.r,
+                GetComponentInChildren<SpriteRenderer>().color.g, GetComponentInChildren<SpriteRenderer>().color.b, 1);
         }
     }                                                                                 
 

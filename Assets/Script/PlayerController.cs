@@ -28,12 +28,11 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //cuando preciona alguna palanca hace fuerza hacia arriba, Impulso vertical
-        if (Input.GetKey("a") || Input.GetKey("d"))
+        
+        if (Input.GetKey("a") || Input.GetKey("d"))                                                                         //cuando preciona alguna palanca....
         {
-            if (transform.position.y < MaxPosicion)
-                fisica.AddRelativeForce(transform.up * fuerza * Time.deltaTime, ForceMode2D.Force);
-                //gameObject.transform.Translate (Vector2.up * Time.deltaTime*fuerza);
+            if (transform.position.y < MaxPosicion)                                                                         //si su posicion es menor a la altura maxima permitida...
+                fisica.AddRelativeForce(transform.up * fuerza * Time.deltaTime, ForceMode2D.Force);                         //Dar fuerza hacia arriba
         }
 
         //Movimiento del Personaje
