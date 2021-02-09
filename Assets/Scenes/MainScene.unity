@@ -805,6 +805,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TransitionAsteroid
       objectReference: {fileID: 0}
+    - target: {fileID: 4617228097850213273, guid: 07b492d1f9d41482e91ced9899ff45f3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4617228097850213274, guid: 07b492d1f9d41482e91ced9899ff45f3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1900,6 +1904,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30068b41870a44dd0a21f6fa2941dded, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controls: 0
 --- !u!4 &1616431919
 Transform:
   m_ObjectHideFlags: 0

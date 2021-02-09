@@ -2,7 +2,9 @@
 
 public class MapController : MonoBehaviour
 {
+    public int puntuacion;
     int i;                                                                                          //i es un indice auxiliar para ver que bloque de obstaculoses el seleccionado
+
     private void Start()                                                                            //Cuando inicia...
     { 
         i = Random.Range(0, transform.childCount);                                                  //Asigna un numero random a i entre 0 y el numero de hijos de MapController(los hijos son bloques de obstaculos)

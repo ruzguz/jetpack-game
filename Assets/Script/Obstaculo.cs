@@ -41,10 +41,11 @@ public class Obstaculo : MonoBehaviour
         transform.position = new Vector3(transform.position.x, puntoDeAparicion, 0);                        //Mueve el objeto a Z=0 
         //transform.localScale = new Vector3(0, 0, 0);                                                      //Convierte su escala en la adecuada para el segundo plano
         transform.localScale = new Vector3(2, 2, 2);                                                        //Convierte su escala en la adecuada para el segundo plano
-
                                                                                                             //El objecto se pone en su transparencia maxima
         GetComponentInChildren<SpriteRenderer>().color = new Color(GetComponentInChildren<SpriteRenderer>().color.r,
-            GetComponentInChildren<SpriteRenderer>().color.g, GetComponentInChildren<SpriteRenderer>().color.b, 0);             
+            GetComponentInChildren<SpriteRenderer>().color.g, GetComponentInChildren<SpriteRenderer>().color.b, 0);      
+        
+        
     }
 
     void Update()
@@ -120,11 +121,18 @@ public class Obstaculo : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.name == "Player")                                                                     //Si colisiono con el player...(comprobacion por si acaso)
+        if (collision.name == "Player")                                                                     //Si colisiono con el player...
         {
             //explotar
             gameObject.SetActive(false);
         }
+
+        if (collision.name == "LimiteInferior")                                                             //Si colisiono con el Limite inferior
+        {
+            //puntuacion++;
+            GameObject.Find("MapController").GetComponent<MapController>().puntuacion++;
+        }
     }
+
 }
 
