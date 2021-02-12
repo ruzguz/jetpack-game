@@ -28,11 +28,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        if (Input.GetKey("a") || Input.GetKey("d"))                                                                         //cuando preciona alguna palanca....
+        //cuando preciona alguna palanca hace fuerza hacia arriba, Impulso vertical
+        if (Input.GetKey("a") || Input.GetKey("d"))
         {
-            if (transform.position.y < MaxPosicion)                                                                         //si su posicion es menor a la altura maxima permitida...
-                fisica.AddRelativeForce(transform.up * fuerza * Time.deltaTime, ForceMode2D.Force);                         //Dar fuerza hacia arriba
+            if (transform.position.y < MaxPosicion)
+                fisica.AddRelativeForce(transform.up * fuerza * Time.deltaTime, ForceMode2D.Force);
+                //gameObject.transform.Translate (Vector2.up * Time.deltaTime*fuerza);
         }
 
         //Movimiento del Personaje
@@ -41,34 +42,41 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey("d"))
             IniciarCoheteDerecho();
 
-        if ((int)(imagen.transform.localRotation.z * 100) < 0)                                                             //automaticamente debe ir corrigiendo su rotacion para que se endereze solo 
+
+        //automaticamente debe ir corrigiendo su rotacion para que se endereze solo 
+        if ((int)(imagen.transform.localRotation.z * 100) < 0)
             imagen.transform.Rotate(new Vector3(0, 0, rotacion / 3 * Time.deltaTime));
 
         if ((int)(imagen.transform.localRotation.z * 100) >= 0)
             imagen.transform.Rotate(new Vector3(0, 0, -rotacion / 3 * Time.deltaTime));
 
-        
-        if (transform.position.y < posMin)                                                                                  //si el personaje esta abajo de la posicion minima...
+        //si el personaje esta abajo entonces sube activando los cohetes hasta 1/4 de la pantalla 
+        if (transform.position.y < posMin)
         {
-            fisica.AddRelativeForce(transform.up * fuerza * Time.deltaTime, ForceMode2D.Force);                             //entonces sube activando los cohetes hasta 1/4 de la pantalla 
-            IniciarCoheteIzquierdo(); IniciarCoheteDerecho();
+            //gameObject.transform.Translate (Vector2.up * Time.deltaTime*fuerza);
+            fisica.AddRelativeForce(transform.up * fuerza * Time.deltaTime, ForceMode2D.Force);
+            IniciarCoheteIzquierdo();IniciarCoheteDerecho();
         }
     }
 
-    void IniciarCoheteIzquierdo()                                                                                           //Activa el cohete Izquierdo
+    void IniciarCoheteIzquierdo()
     {
-        CoheteDerecho.SetTrigger("isFlying");                                                                               //Activa la animacion del cohete
-        fisica.AddRelativeForce(transform.right * desplazamiento * Time.deltaTime, ForceMode2D.Force);                      //Agrega fuerza al personaje
-        if (imagen.transform.localRotation.z * 100 > MaxRotaDerecha)                                                        //Si la rotacion es menor a su rotacion derecha maxima...
-            imagen.transform.Rotate(new Vector3(0, 0, -rotacion * Time.deltaTime));                                         //rota en sentido del reloj
+        CoheteDerecho.SetTrigger("isFlying");
+        //cuanda preciona a se desplaza a la derecha
+        fisica.AddRelativeForce(transform.right * desplazamiento * Time.deltaTime, ForceMode2D.Force);
+        if (imagen.transform.localRotation.z * 100 > MaxRotaDerecha)
+            //rota en sentido del reloj
+            imagen.transform.Rotate(new Vector3(0, 0, -rotacion * Time.deltaTime));
     }
 
-    void IniciarCoheteDerecho()                                                                                             //Activa el cohete Derecho
+    void IniciarCoheteDerecho()
     {
-        CoheteIzquierdo.SetTrigger("isFlying");                                                                             //Activa la animacion del cohete
-        fisica.AddRelativeForce(-transform.right* desplazamiento * Time.deltaTime, ForceMode2D.Force);                      //Agrega fuerza al personaje
-        if (imagen.transform.localRotation.z* 100 < MaxRotIzquierda)                                                        //Si la rotacion es menor a su rotacion izquierda maxima...
-            imagen.transform.Rotate(new Vector3(0, 0, rotacion* Time.deltaTime));                                           //rota en sentido del contrario al reloj
+        //cuanda preciona a se desplaza a la izquierda
+        CoheteIzquierdo.SetTrigger("isFlying");
+        fisica.AddRelativeForce(-transform.right* desplazamiento * Time.deltaTime, ForceMode2D.Force);
+        if (imagen.transform.localRotation.z* 100 < MaxRotIzquierda)
+            //rota en sentido del contrario al reloj
+            imagen.transform.Rotate(new Vector3(0, 0, rotacion* Time.deltaTime));
     }
 
     private void OnCollisionEnter2D(Collision2D collision)                                                                  //Ante una colision
@@ -81,7 +89,7 @@ public class PlayerController : MonoBehaviour
                 StartCoroutine(Particulas(ParticulaIzq));                                                                   //Empezar un hilo para mantener las particulas encendidas por un tiempo                          
 
             }
-            if (collision.gameObject.name == "LimiteDerecho")                                                               //Si colisiona con el limite derecho...
+            if (collision.gameObject.name == "LimiteDerecho")                                                               //Si colisiono con el limite derecho
             {
                 ParticulaDer.SetActive(true);                                                                               //Activar las particulas del lado derecho del casco
                 StartCoroutine(Particulas(ParticulaDer));                                                                   //Empezar un hilo para mantener las particulas encendidas por un tiempo
@@ -90,28 +98,13 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    IEnumerator Particulas(GameObject Particula)                                                                            //0.25 de espera por la animacion y el resto para el parpadeo
+    IEnumerator Particulas(GameObject Particula)                                           //0.25 de espera por la animacion y el resto para el parpadeo
     {
-        for (float tiempo = Time.time; Time.time - tiempo <tiempoParticula;)                                                //tiempo que tarda en no hacer nada
-            yield return null;                                                                                              //esto significa no hacer nada
-        Particula.SetActive(false);                                                                                         
+        for (float tiempo = Time.time; Time.time - tiempo <tiempoParticula;)                             //tiempo que tarda
+            yield return null; //esto significa no hacer nada
+        Particula.SetActive(false);
         yield return null;
 
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.tag == "Roca")                                                                                        //si colisiona con una roca
-        {
-            
-            if(Random.Range(0, 2)==1)                                                                                       //Random para determinar si sale disparado a la izquierda o a la derecha
-                fisica.AddRelativeForce((transform.right-transform.up) * 0.3f * fuerza * Time.deltaTime, 
-                    ForceMode2D.Impulse);                             
-            else
-                fisica.AddRelativeForce((-transform.right-transform.up) * 0.3f * fuerza * Time.deltaTime, 
-                    ForceMode2D.Impulse);                             
-
-        }
     }
 }
 
