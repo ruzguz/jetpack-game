@@ -2,7 +2,9 @@
 
 public class MapController : MonoBehaviour
 {
+    public int puntuacion;
     int i;                                                                                          //i es un indice auxiliar para ver que bloque de obstaculoses el seleccionado
+
     private void Start()                                                                            //Cuando inicia...
     { 
         i = Random.Range(0, transform.childCount);                                                  //Asigna un numero random a i entre 0 y el numero de hijos de MapController(los hijos son bloques de obstaculos)
@@ -13,7 +15,7 @@ public class MapController : MonoBehaviour
         ActivarBloque(gameObject.transform.GetChild(i).gameObject);                                 //Activa el bloque con el indice i
     }
 
-    void ActivarBloque(GameObject bloque)                                                           //funcion para activa el bloque de obstaculos
+    void ActivarBloque(GameObject bloque)                                                           //funcion para activar el bloque de obstaculos
     {
         if (bloque.activeSelf == false)                                                             //Si el Bloque de obstaculos no esta activado...
             bloque.SetActive(true);                                                                 //activa el bloque de obstaculos

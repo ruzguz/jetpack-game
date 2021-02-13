@@ -4,12 +4,19 @@ Corregir la velocidad de transparencia en los obstaculos para dar un mejor efect
 Agregar obstaculos entre bloques de obstaculos
 	posible solucion:
 
-Agregar rotacion a los obstaculos
+
+Corregir la escala de los obstaculos en segundo plano
+
+Agregar velocidad escalable al personaje
+
+cambiar los obstaculos moviles por marcianos
+
+que todos los obstaculos comienzen a salir desde el punto 0 para facilitar las formulas
 
 
-Agregar puntuacion
+Agregar lapuntuacion en la UI
 
-Agregar el golpe del personaje
 
-Buscar pagina de sonidos
+Juntar la Escena de Rusben con la mia,
 
+QUe la puntuacion se visualizw
