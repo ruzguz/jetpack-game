@@ -4,9 +4,6 @@ Corregir la velocidad de transparencia en los obstaculos para dar un mejor efect
 Agregar obstaculos entre bloques de obstaculos
 	posible solucion:
 
-
-Corregir la escala de los obstaculos en segundo plano
-
 Agregar velocidad escalable al personaje
 
 cambiar los obstaculos moviles por marcianos
@@ -20,3 +17,13 @@ Agregar lapuntuacion en la UI
 Juntar la Escena de Rusben con la mia,
 
 QUe la puntuacion se visualizw
+
+
+motivo por el cual corre
+
+animacion del principio no hacer
+
+Mejorar el movimiento lateral del personaje
+
+
+

@@ -38,9 +38,9 @@ public class Obstaculo : MonoBehaviour
     private void OnEnable()
     {
 
-        transform.position = new Vector3(transform.position.x, puntoDeAparicion, 0);                        //Mueve el objeto a Z=0 
-        //transform.localScale = new Vector3(0, 0, 0);                                                      //Convierte su escala en la adecuada para el segundo plano
-        transform.localScale = new Vector3(2, 2, 2);                                                        //Convierte su escala en la adecuada para el segundo plano
+        transform.localPosition = new Vector3(transform.position.x, puntoDeAparicion, 0);                        //Mueve el objeto a Z=0 
+        transform.localScale = new Vector3(0, 0, 0);                                                      //Convierte su escala en la adecuada para el segundo plano
+        //transform.localScale = new Vector3(2, 2, 2);                                                        //Convierte su escala en la adecuada para el segundo plano
                                                                                                             //El objecto se pone en su transparencia maxima
         GetComponentInChildren<SpriteRenderer>().color = new Color(GetComponentInChildren<SpriteRenderer>().color.r,
             GetComponentInChildren<SpriteRenderer>().color.g, GetComponentInChildren<SpriteRenderer>().color.b, 0);      
@@ -85,20 +85,23 @@ public class Obstaculo : MonoBehaviour
 
     void SegundoPlano()
     {
-        transform.GetComponentInChildren<CircleCollider2D>().enabled = false;                                            //Desabilita el boxcolider para evitar errores
+        transform.GetComponentInChildren<CircleCollider2D>().enabled = false;                               //Desabilita el boxcolider para evitar errores
+
         if (transform.position.y < alturaMaxima)                                                            //si la posicion del obstaculo es menor a la altura maxima....
         {
             transform.Translate(Vector3.up * Time.deltaTime * velocidadUp);                                 //mover el obstaculo hacia arriba
+
+            //------------------------------------------------------------------------------ Mejorar
             if (GetComponentInChildren<SpriteRenderer>().color.a < 0.6)                                               //si el objeto tiene la tiene la transparencia menor a 0.6...
                 GetComponentInChildren<SpriteRenderer>().color += new Color(0, 0, 0,
                     velocidadTransparencia * Time.deltaTime * velocidadUp);                                 //reduce la transparencia
         }
 
-        /*if (transform.localScale.x < tamanoMaximo)
-
-
-            tamano = tamanoMaximo / (alturaMaxima - transform.position.y);
-            transform.localScale = new Vector3(tamano,tamano, 0) * Time.deltaTime; //Tamano es igual a la distancia que le falta*/
+        if (transform.localScale.x < tamanoMaximo && transform.position.y > 0)
+        {
+            tamano = tamanoMaximo/ (alturaMaxima - transform.position.y);
+            transform.localScale = new Vector3(tamano, tamano, 0); //Tamano es igual a la distancia que le falta
+        }
         if (transform.position.y >= alturaMaxima && transform.localScale.x >= tamanoMaximo)
         {
             transform.position = new Vector3(transform.position.x, transform.position.y, 1);            //Mueve el objeto a Z=1
