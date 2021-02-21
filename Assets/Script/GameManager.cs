@@ -18,10 +18,12 @@ public class GameManager : MonoBehaviour
     public int gameScore;
     public int maxScore;
     private int controls;
+    private AudioSource _gameScoreAudio, _maxScoreAudio;
 
     void Awake() 
     {
-        
+        _gameScoreAudio = currentScoreText.GetComponent<AudioSource>();
+        _maxScoreAudio = maxScoreText.GetComponent<AudioSource>();
     }
 
     // Start is called before the first frame update
@@ -81,9 +83,10 @@ public class GameManager : MonoBehaviour
         // Increase the current score by "value"
     public void IncreaseScore(int value)
     {
-        this.gameScore += value;
-        this.currentScoreText.text = string.Format("{0}", gameScore);
-        this.gameScoreText.text = string.Format("{0}", gameScore);
+        gameScore += value;
+        currentScoreText.text = string.Format("{0}", gameScore);
+        gameScoreText.text = string.Format("{0}", gameScore);
+        _gameScoreAudio.Play(0);
     }
 
     // Set max score 
@@ -93,6 +96,7 @@ public class GameManager : MonoBehaviour
         {
             PlayerPrefs.SetInt("maxScore", gameScore);
             maxScoreText.text = string.Format("{0}", gameScore);
+            _maxScoreAudio.Play(0);
         }
     }
 
