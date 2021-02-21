@@ -11,7 +11,13 @@ public class GameManager : MonoBehaviour
     
     // UI vars
     private Animator _pauseAnimator; 
-    public int controls;
+    
+    public Text currentScoreText, gameScoreText, maxScoreText;
+
+    // General vars
+    public int gameScore;
+    public int maxScore;
+    private int controls;
 
     void Awake() 
     {
@@ -34,7 +40,15 @@ public class GameManager : MonoBehaviour
 
         // Get Controls value
         controls = PlayerPrefs.GetInt("controls");
-        Debug.Log(controls);
+        
+
+        // Initilizate scores
+        gameScore = 0;
+        maxScore = PlayerPrefs.GetInt("maxScore");
+
+        currentScoreText.text = "0";
+        gameScoreText.text = "0";
+        maxScoreText.text = string.Format("{0}", maxScore);
     }
 
     // Update is called once per frame
@@ -61,6 +75,30 @@ public class GameManager : MonoBehaviour
     public void ExitGame()
     {
         Debug.Log("EXIT GAME");
+    }
+
+
+        // Increase the current score by "value"
+    public void IncreaseScore(int value)
+    {
+        this.gameScore += value;
+        this.currentScoreText.text = string.Format("{0}", gameScore);
+        this.gameScoreText.text = string.Format("{0}", gameScore);
+    }
+
+    // Set max score 
+    public void UpdateMaxScore()
+    {
+        if (gameScore > maxScore) 
+        {
+            PlayerPrefs.SetInt("maxScore", gameScore);
+            maxScoreText.text = string.Format("{0}", gameScore);
+        }
+    }
+
+    public void ResetMaxScore()
+    {
+        PlayerPrefs.SetInt("maxScore", 0);
     }
 
 }
