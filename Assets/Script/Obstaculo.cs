@@ -92,7 +92,7 @@ public class Obstaculo : MonoBehaviour
             transform.Translate(Vector3.up * Time.deltaTime * velocidadUp);                                 //mover el obstaculo hacia arriba
 
             //------------------------------------------------------------------------------ Mejorar
-            if (GetComponentInChildren<SpriteRenderer>().color.a < 0.6)                                               //si el objeto tiene la tiene la transparencia menor a 0.6...
+            if (GetComponentInChildren<SpriteRenderer>().color.a < 0.6)                                     //si el objeto tiene la tiene la transparencia menor a 0.6...
                 GetComponentInChildren<SpriteRenderer>().color += new Color(0, 0, 0,
                     velocidadTransparencia * Time.deltaTime * velocidadUp);                                 //reduce la transparencia
         }
@@ -100,11 +100,11 @@ public class Obstaculo : MonoBehaviour
         if (transform.localScale.x < tamanoMaximo && transform.position.y > 0)
         {
             tamano = tamanoMaximo/ (alturaMaxima - transform.position.y);
-            transform.localScale = new Vector3(tamano, tamano, 0); //Tamano es igual a la distancia que le falta
+            transform.localScale = new Vector3(tamano, tamano, 0);                                          //Tamano es igual a la distancia que le falta
         }
         if (transform.position.y >= alturaMaxima && transform.localScale.x >= tamanoMaximo)
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y, 1);            //Mueve el objeto a Z=1
+            transform.position = new Vector3(transform.position.x, transform.position.y, 1);                //Mueve el objeto a Z=1
             transform.localScale = new Vector3(tamanoMaximo, tamanoMaximo, 0);
             GetComponentInChildren<SpriteRenderer>().color = new Color(GetComponentInChildren<SpriteRenderer>().color.r,
                 GetComponentInChildren<SpriteRenderer>().color.g, GetComponentInChildren<SpriteRenderer>().color.b, 1);
