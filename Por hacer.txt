@@ -8,8 +8,6 @@ Agregar velocidad escalable al personaje
 
 cambiar los obstaculos moviles por marcianos
 
-que todos los obstaculos comienzen a salir desde el punto 0 para facilitar las formulas
-
 
 Agregar lapuntuacion en la UI
 
