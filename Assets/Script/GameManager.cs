@@ -105,4 +105,9 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("maxScore", 0);
     }
 
+    public void ResetGame()
+    {
+        GameObject.Find("GameOverPanel").SetActive(false);
+    }
+
 }
