@@ -16,6 +16,8 @@ public class DontDestroy : MonoBehaviour
             sharedInstance = this;
             DontDestroyOnLoad(this.gameObject);
         }
+
+
     }
 
     // Start is called before the first frame update
@@ -29,4 +31,5 @@ public class DontDestroy : MonoBehaviour
     {
         
     }
+
 }
