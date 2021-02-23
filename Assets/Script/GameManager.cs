@@ -11,9 +11,10 @@ public class GameManager : MonoBehaviour
     
     // UI vars
     private Animator _pauseAnimator; 
+    [SerializeField]
     private GameObject _gameOverPanel;
     
-    public Text currentScoreText, gameScoreText, maxScoreText, _newRecordLabel;
+    public Text currentScoreText, gameScoreText, maxScoreText;
 
     // General vars
     public int gameScore;
@@ -25,8 +26,6 @@ public class GameManager : MonoBehaviour
     {
         _gameScoreAudio = currentScoreText.GetComponent<AudioSource>();
         _maxScoreAudio = maxScoreText.GetComponent<AudioSource>();
-        _gameOverPanel = GameObject.Find("GameOverPanel");
-        _newRecordLabel = GameObject.Find("NewRecord").GetComponent<Text>();
     }
 
     // Start is called before the first frame update
@@ -84,8 +83,8 @@ public class GameManager : MonoBehaviour
     public void ResetGame()
     {
         // Reset UI Elements
+        GameObject.Find("NewRecord").GetComponent<Text>().enabled = false;
         _gameOverPanel.SetActive(false);
-        _newRecordLabel.enabled = false;
         gameScore = 0;
         gameScoreText.text = string.Format("{0}", 0);
         currentScoreText.text = string.Format("{0}", 0);
@@ -109,7 +108,7 @@ public class GameManager : MonoBehaviour
     {
         if (gameScore > maxScore) 
         {
-            _newRecordLabel.enabled = true;
+            GameObject.Find("NewRecord").GetComponent<Text>().enabled = false;
             maxScore = gameScore;
             PlayerPrefs.SetInt("maxScore", gameScore);
             maxScoreText.text = string.Format("{0}", gameScore);

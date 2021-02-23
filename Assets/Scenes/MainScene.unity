@@ -1392,7 +1392,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &490273976
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4036,10 +4036,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30068b41870a44dd0a21f6fa2941dded, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameOverPanel: {fileID: 1752540659}
   currentScoreText: {fileID: 1722747460}
   gameScoreText: {fileID: 143267458}
   maxScoreText: {fileID: 364491419}
-  _newRecordLabel: {fileID: 0}
   gameScore: 0
   maxScore: 0
 --- !u!4 &1616431919
@@ -4425,7 +4425,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1752540660
 RectTransform:
   m_ObjectHideFlags: 0
