@@ -1,27 +1,28 @@
-Corregir la velocidad de transparencia en los obstaculos para dar un mejor efecto en su aparicion
-	Posible solucion, asignar transparencia con respecto a la trayectoria faltante hasta su punto maximo
 
 Agregar obstaculos entre bloques de obstaculos
 	posible solucion:
 
-Agregar velocidad escalable al personaje
 
-cambiar los obstaculos moviles por marcianos
-
-
-Agregar lapuntuacion en la UI
-
-
-Juntar la Escena de Rusben con la mia,
-
-QUe la puntuacion se visualizw
 
 
 motivo por el cual corre
 
 animacion del principio no hacer
 
+
+modificar el tamnao de los controles
+
+
+
+
+
+
+Juntar la Escena de Rusben con la mia,
+
+Agregar velocidad escalable al personaje
+
+Agregar lapuntuacion en la UI
+
 Mejorar el movimiento lateral del personaje
 
-
-
+Crear el disparo del marciano 
