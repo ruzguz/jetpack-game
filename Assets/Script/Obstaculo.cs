@@ -134,7 +134,7 @@ public class Obstaculo : MonoBehaviour
         if (collision.name == "LimiteInferior")                                                             //Si colisiono con el Limite inferior
         {
             //puntuacion++;
-            //GameObject.Find("MapController").GetComponent<MapController>().puntuacion++;
+            GameObject.Find("GameManager").GetComponent<GameManager>().IncreaseScore(100);
             
         }
     }
