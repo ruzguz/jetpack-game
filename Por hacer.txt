@@ -21,8 +21,6 @@ Juntar la Escena de Rusben con la mia,
 
 Agregar velocidad escalable al personaje
 
-Agregar lapuntuacion en la UI
 
-Mejorar el movimiento lateral del personaje
 
 Crear el disparo del marciano 

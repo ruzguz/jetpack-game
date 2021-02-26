@@ -129,12 +129,12 @@ public class Obstaculo : MonoBehaviour
         {
             //explotar
             gameObject.SetActive(false);
+            GameObject.Find("GameManager").GetComponent<GameManager>().IncreaseScore(-100);
         }
 
         if (collision.name == "LimiteInferior")                                                             //Si colisiono con el Limite inferior
         {
-            //puntuacion++;
-            GameObject.Find("GameManager").GetComponent<GameManager>().IncreaseScore(100);
+            GameObject.Find("GameManager").GetComponent<GameManager>().IncreaseScore(69);
             
         }
     }

@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey("a") || Input.GetKey("d"))                                                                         //cuando preciona alguna palanca....
         {
             if (transform.position.y < MaxPosicion)                                                                         //si su posicion es menor a la altura maxima permitida...
-                fisica.AddRelativeForce(transform.up * fuerza * Time.deltaTime, ForceMode2D.Force);                         //Dar fuerza hacia arriba
+                fisica.AddRelativeForce(transform.up * (fuerza/2) * Time.deltaTime, ForceMode2D.Force);                         //Dar fuerza hacia arriba
         }
 
         //Movimiento del Personaje
