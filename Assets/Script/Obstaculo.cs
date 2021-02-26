@@ -6,7 +6,7 @@ public class Obstaculo : MonoBehaviour
                                                                                                             //Desplazamiento es cuanto se deplazara en el eje X los objectos con movimiento lateral
 
 
-    public bool seMueveLateral,lanzador;                                                                             //SeMueveLateral determina si el obstaculo tiene desplazamiento lateral
+    public bool seMueveLateral,lanzador,aleatorio=false;                                                                             //SeMueveLateral determina si el obstaculo tiene desplazamiento lateral
                                                                                                             //velocidadDown es la velocidad de bajada y define el movimiento de subida y el movimiento lateral
     float velocidadDown, velocidadUp, velocidadLateral, direccion, velocidadTransparencia,                  //direccion es un auxiliar para determinar hacia donde se esta moviendo un obstaculo con movimiento lateral
         tamanoMaximo, alturaMaxima, alturaMin, velocidadRotacion;                                           //velocidadTransparencia la rapidez que tiene para quitar la transparencia del objeto a medida que sube en el segundo plano
@@ -115,12 +115,7 @@ public class Obstaculo : MonoBehaviour
     void PrimerPlano()
     {
         transform.GetComponent<CircleCollider2D>().enabled = true;                                            //habilitar el colider del obstaculo
-
         transform.Translate(Vector3.down * Time.deltaTime * velocidadDown);
-        if (transform.position.y <= alturaMin)
-        {
-            gameObject.SetActive(false);
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -132,10 +127,14 @@ public class Obstaculo : MonoBehaviour
             GameObject.Find("GameManager").GetComponent<GameManager>().IncreaseScore(-100);
         }
 
-        if (collision.name == "LimiteInferior")                                                             //Si colisiono con el Limite inferior
+        if (collision.name == "LimiteInferior" && transform.position.z==1)                                                             //Si colisiono con el Limite inferior
         {
             GameObject.Find("GameManager").GetComponent<GameManager>().IncreaseScore(69);
-            
+            gameObject.SetActive(false);
+            if (aleatorio == true)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 

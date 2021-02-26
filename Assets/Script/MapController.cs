@@ -5,8 +5,10 @@ public class MapController : MonoBehaviour
 {
     public int puntuacion, indiceTrasero, indiceFrontal;                                            //bloqueTrasero es un indice auxiliar para ver que bloque de obstaculos es el seleccionado para empezar en segundo plano
 
-    GameObject bloqueTrasero, bloqueFrontal;
+    public GameObject bloqueTrasero, bloqueFrontal;
     public GameObject Obstaculo, aleatorios;
+
+    bool creandoAletario=false;                                                                     //Usado en la corrutina de crear obstaculos aleatorios y sirve para que cree 1 por 1 en el tiempo establecido
     private void Start()                                                                            //Cuando inicia...
     {
         indiceTrasero = Random.Range(0, transform.childCount);                                      //Asigna un numero random a indiceTrasero entre 0 y el numero de hijos de MapController(los hijos son bloques de obstaculos)
@@ -44,9 +46,13 @@ public class MapController : MonoBehaviour
         if (bloqueFrontal != null && bloqueTrasero != null)
         {
             if (aleatorios.transform.childCount < 4)
-            ObstaculosAleatorios();                                                                   //Empezar un hilo para mantener las particulas encendidas por un tiempo
-            //Debug.Log(aleatorios.transform.childCount);
-
+            {
+                if (creandoAletario == false)                                                       //Si no esta creando un obstaculo...
+                {
+                    creandoAletario = true;                                                         //Indica que se esta creando un obstaculo
+                    StartCoroutine(ObstaculosAleatorios(1));                                        //Empezar un hilo para crear un obstaculo
+                }
+            }
         }
 
     }
@@ -87,7 +93,7 @@ public class MapController : MonoBehaviour
                 aux++;                                                                              //suma uno a aux para contar los hijos activos
 
 
-        if (aux == 0) {                                                                                //si aux es igual a 0...(significa que no hay hijos activos)
+        if (aux == 0) {                                                                             //si aux es igual a 0...(significa que no hay hijos activos)
             bloque.SetActive(false);                                                                //El bloque se desactiva
             for (j = 0; j < bloque.transform.childCount; j++)                                       //por cada hijo del bloque de obstaculos
                 bloque.transform.GetChild(j).gameObject.SetActive(true);                            //activar el hijo para un futuro uso cuando se vuelva a activar elbloque de obstaculos
@@ -96,11 +102,16 @@ public class MapController : MonoBehaviour
         return false;
     }
 
-    void ObstaculosAleatorios()
+    IEnumerator ObstaculosAleatorios(float tiempo)
     {
-        
-       // GameObject obstaculo =Instantiate(Obstaculo, new Vector3(Random.Range(-3, 3), -6, 0), Quaternion.identity,aleatorios.transform);
-       // obstaculo.SetActive(true);
+        for (float t = Time.time; Time.time - t < tiempo;)                                                //tiempo que tarda en no hacer nada
+            yield return null;
+        GameObject obstaculo =Instantiate(Obstaculo, new Vector3(Random.Range(-3, 3), -6, 0), Quaternion.identity,aleatorios.transform);
+        obstaculo.SetActive(true);
+        obstaculo.GetComponent<Obstaculo>().aleatorio = true;
+        creandoAletario = false;
+        yield return null;
+
 
     }
 

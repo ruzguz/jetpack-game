@@ -16,11 +16,12 @@ modificar el tamnao de los controles
 
 
 
-
-Juntar la Escena de Rusben con la mia,
-
 Agregar velocidad escalable al personaje
 
-
-
 Crear el disparo del marciano 
+
+Si player golpea un meteoro pierde una vida
+
+si player golpea un marciano la vida baja a 0
+
+Mejorar la generacion de bloques
