@@ -2,7 +2,7 @@
 
 public class Obstaculo : MonoBehaviour
 {
-    public float puntoDeAparicion, puntoD, puntoI, tamano;                                                  //Punto de aparicion es el punto donde aparece en pantalla el obstaculo cuando se activa
+    public float puntoDeAparicion, puntoD, puntoI, tamano, vida;                                                  //Punto de aparicion es el punto donde aparece en pantalla el obstaculo cuando se activa
                                                                                                             //Desplazamiento es cuanto se deplazara en el eje X los objectos con movimiento lateral
 
 
@@ -17,7 +17,8 @@ public class Obstaculo : MonoBehaviour
 
     private void Start()
     {
-        velocidadDown = 3;                                                                                  //Se inicializan las variables
+        vida = 5;
+        velocidadDown = 6;                                                                                  //Se inicializan las variables
         tamanoMaximo = 2;
         alturaMaxima = 6;
         alturaMin = -alturaMaxima;

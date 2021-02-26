@@ -107,7 +107,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.tag == "Roca")                                                                                        //si colisiona con una roca
         {
-            
+            Personaje.SetTrigger("takeDamage");
             if(Random.Range(0, 2)==1)                                                                                       //Random para determinar si sale disparado a la izquierda o a la derecha
                 fisica.AddRelativeForce((transform.right-transform.up) * 0.3f * fuerza * Time.deltaTime, 
                     ForceMode2D.Impulse);                             
@@ -115,6 +115,10 @@ public class PlayerController : MonoBehaviour
                 fisica.AddRelativeForce((-transform.right-transform.up) * 0.3f * fuerza * Time.deltaTime, 
                     ForceMode2D.Impulse);                             
 
+        }
+        if (collision.tag == "Marciano")                                                                                        //si colisiona con un marciano
+        {
+            Personaje.SetTrigger("die");
         }
     }
 }
