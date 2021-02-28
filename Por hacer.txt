@@ -1,15 +1,27 @@
-Corregir la velocidad de transparencia en los obstaculos para dar un mejor efecto en su aparicion
-	Posible solucion, asignar transparencia con respecto a la trayectoria faltante hasta su punto maximo
 
 Agregar obstaculos entre bloques de obstaculos
 	posible solucion:
 
-Agregar rotacion a los obstaculos
 
 
-Agregar puntuacion
 
-Agregar el golpe del personaje
+motivo por el cual corre
 
-Buscar pagina de sonidos
+animacion del principio no hacer
 
+
+modificar el tamnao de los controles
+
+
+
+
+
+Agregar velocidad escalable al personaje
+
+Crear el disparo del marciano 
+
+Si player golpea un meteoro pierde una vida
+
+si player golpea un marciano la vida baja a 0
+
+Mejorar la generacion de bloques
