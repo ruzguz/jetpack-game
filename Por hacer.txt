@@ -20,8 +20,11 @@ Agregar velocidad escalable al personaje
 
 Crear el disparo del marciano 
 
-Si player golpea un meteoro pierde una vida
-
-si player golpea un marciano la vida baja a 0
-
 Mejorar la generacion de bloques
+
+Limpiar los codigos
+
+cambiar el sprite del personaje si logolpean
+
+crearun marco que se va poniendo azul si lo golpea
+

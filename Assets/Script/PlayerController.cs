@@ -6,9 +6,9 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D fisica;
     public int fuerza, desplazamiento, rotacion;
     public GameObject imagen;
-    public Animator Personaje, CoheteDerecho, CoheteIzquierdo;
+    public Animator Personaje, CoheteDerecho, CoheteIzquierdo, Camera;
     static int MaxRotIzquierda = 38, MaxRotaDerecha = -MaxRotIzquierda; //la maxima rotacion que tiene el Jetpack
-
+    int vida;
     public int posMin;
     public float tiempoParticula;
     public GameObject ParticulaIzq, ParticulaDer;
@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
         Personaje = gameObject.transform.GetChild(0).GetComponent<Animator>();
         CoheteDerecho = gameObject.transform.GetChild(0).gameObject.transform.GetChild(0).GetComponent<Animator>();
         CoheteIzquierdo = gameObject.transform.GetChild(0).gameObject.transform.GetChild(1).GetComponent<Animator>();
+        vida=5;
     }
 
 
@@ -93,33 +94,50 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
     IEnumerator Particulas(GameObject Particula)                                                                            //0.25 de espera por la animacion y el resto para el parpadeo
     {
         for (float tiempo = Time.time; Time.time - tiempo <tiempoParticula;)                                                //tiempo que tarda en no hacer nada
             yield return null;                                                                                              //esto significa no hacer nada
         Particula.SetActive(false);                                                                                         
         yield return null;
-
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Roca")                                                                                        //si colisiona con una roca
         {
-            Personaje.SetTrigger("takeDamage");
-            if(Random.Range(0, 2)==1)                                                                                       //Random para determinar si sale disparado a la izquierda o a la derecha
+           
+            golpe();
+            if (vida==0)
+                morir(2);
+                                     
+
+        }
+        if (collision.tag == "Marciano")                                                                                        //si colisiona con un marciano
+            morir(1);
+    }
+    void golpe(){
+        Personaje.SetTrigger("takeDamage");
+        Camera.SetTrigger("Shake");
+        vida--;
+        if(Random.Range(0, 2)==1)                                                                                       //Random para determinar si sale disparado a la izquierda o a la derecha
                 fisica.AddRelativeForce((transform.right-transform.up) * 0.3f * fuerza * Time.deltaTime, 
                     ForceMode2D.Impulse);                             
             else
                 fisica.AddRelativeForce((-transform.right-transform.up) * 0.3f * fuerza * Time.deltaTime, 
-                    ForceMode2D.Impulse);                             
+                    ForceMode2D.Impulse);    
+    }
 
-        }
-        if (collision.tag == "Marciano")                                                                                        //si colisiona con un marciano
-        {
-            Personaje.SetTrigger("die");
-        }
+    void morir (int tipo){
+        if (tipo==1)//murio por alien
+            Personaje.SetTrigger("die");        
+        if (tipo==2)//murio por asteroide
+            Personaje.SetTrigger("freeze");        
+        else
+            Personaje.SetTrigger("die");        
+
     }
 }
+
+
 

@@ -400,6 +400,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 226686791}
   m_CullTransparentMesh: 0
+--- !u!1 &277918528 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2761688518842579298, guid: 9ebc020c0912c1049915e13a29ce324d, type: 3}
+  m_PrefabInstance: {fileID: 2761688519064109342}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &277918532
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 277918528}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ece79d082820af7459a98ceb259d93ce, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!95 &323995887 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 1876213799, guid: bf618bee9d645eb49aea7d9e6c47afd9, type: 3}
@@ -1050,6 +1074,10 @@ PrefabInstance:
       propertyPath: CoheteIzquierdo
       value: 
       objectReference: {fileID: 323995887}
+    - target: {fileID: 1405963173541953102, guid: bf618bee9d645eb49aea7d9e6c47afd9, type: 3}
+      propertyPath: Camera
+      value: 
+      objectReference: {fileID: 277918532}
     - target: {fileID: 1405963173541953103, guid: bf618bee9d645eb49aea7d9e6c47afd9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2200,7 +2228,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Score: 9999'
+  m_Text: 'Score: 0'
 --- !u!222 &1722747461
 CanvasRenderer:
   m_ObjectHideFlags: 0
