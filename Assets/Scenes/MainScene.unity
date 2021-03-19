@@ -455,7 +455,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6484043743212049369, guid: 91dbd293da88bfc4bb46d4ecacec780e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6484043743212049370, guid: 91dbd293da88bfc4bb46d4ecacec780e, type: 3}
       propertyPath: aleatorios
@@ -741,7 +741,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &768992957
 Transform:
   m_ObjectHideFlags: 0
@@ -2046,6 +2046,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30068b41870a44dd0a21f6fa2941dded, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  velocidadObstaculos: 0
   currentScoreText: {fileID: 1722747460}
   gameScore: 0
   maxScore: 0

@@ -2,23 +2,27 @@
 
 public class Obstaculo : MonoBehaviour
 {
+    public GameObject GameManager;
+
     public float puntoDeAparicion, puntoD, puntoI, tamano, vida;                                                  //Punto de aparicion es el punto donde aparece en pantalla el obstaculo cuando se activa
                                                                                                             //Desplazamiento es cuanto se deplazara en el eje X los objectos con movimiento lateral
 
 
     public bool seMueveLateral,lanzador,aleatorio=false;                                                                             //SeMueveLateral determina si el obstaculo tiene desplazamiento lateral
-                                                                                                            //velocidadDown es la velocidad de bajada y define el movimiento de subida y el movimiento lateral
-    float velocidadDown, velocidadUp, velocidadLateral, direccion, velocidadTransparencia,                  //direccion es un auxiliar para determinar hacia donde se esta moviendo un obstaculo con movimiento lateral
+    public float velocidadDown;                                                                                                        //velocidadDown es la velocidad de bajada y define el movimiento de subida y el movimiento lateral
+    float  velocidadUp, velocidadLateral, direccion, velocidadTransparencia,                  //direccion es un auxiliar para determinar hacia donde se esta moviendo un obstaculo con movimiento lateral
         tamanoMaximo, alturaMaxima, alturaMin, velocidadRotacion;                                           //velocidadTransparencia la rapidez que tiene para quitar la transparencia del objeto a medida que sube en el segundo plano
                                                                                                             //velocidadCrecimiento es la rapidez con la que crece el objeto a medida que sube en el segundo plano
                                                                                                             //puntoD y puntoI son el punto derecho o izquierdo en el eje x donde los movimientos laterales deben llegar
 
     const int primerPlano=1, segundoPlano=0;                                                                //variables que constantes para facilitar el entendimiento del codigo
 
-    private void Start()
+    void Start()
     {
+        GameManager = GameObject.Find("GameManager");
+        actualizarVelocidad();                                                        //La velocidad de movimiento lateral es igual al de bajada
         vida = 5;
-        velocidadDown = 6;                                                                                  //Se inicializan las variables
+        velocidadDown = 1;                                                                                  //Se inicializan las variables
         tamanoMaximo = 2;
         alturaMaxima = 6;
         alturaMin = -alturaMaxima;
@@ -36,21 +40,23 @@ public class Obstaculo : MonoBehaviour
 
     }
 
-    private void OnEnable()
+    void OnEnable()
     {
-
         transform.localPosition = new Vector3(transform.position.x, puntoDeAparicion, 0);                        //Mueve el objeto a Z=0 
         transform.localScale = new Vector3(0, 0, 0);                                                      //Convierte su escala en la adecuada para el segundo plano
         //transform.localScale = new Vector3(2, 2, 2);                                                        //Convierte su escala en la adecuada para el segundo plano
                                                                                                             //El objecto se pone en su transparencia maxima
         GetComponentInChildren<SpriteRenderer>().color = new Color(GetComponentInChildren<SpriteRenderer>().color.r,
-            GetComponentInChildren<SpriteRenderer>().color.g, GetComponentInChildren<SpriteRenderer>().color.b, 0);      
-        
+            GetComponentInChildren<SpriteRenderer>().color.g, GetComponentInChildren<SpriteRenderer>().color.b, 0);   
+
+
+
         
     }
 
     void Update()
     {
+        actualizarVelocidad();
         if (!(puntoD == 0 && puntoI == 0))                                                                  //Si el Obstaculo tiene movimiento lateral...
             MovimientoLateral();                                                                            //llama la funcion para hacer movimiento lateral
 
@@ -119,7 +125,7 @@ public class Obstaculo : MonoBehaviour
         transform.Translate(Vector3.down * Time.deltaTime * velocidadDown);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.name == "Player")                                                                     //Si colisiono con el player...
         {
@@ -137,6 +143,13 @@ public class Obstaculo : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+    }
+
+    void actualizarVelocidad(){
+        velocidadDown = GameManager.GetComponent<GameManager>().velocidadObstaculos;
+        velocidadUp = velocidadDown / 2;
+        velocidadLateral = velocidadDown/2;                                                          //La velocidad de movimiento lateral es igual al de bajada
+
     }
 
 }

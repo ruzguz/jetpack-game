@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 
     // Singleton
     public static GameManager sharedInstance;
-    
+    public float velocidadObstaculos, velocidadPlayer;
     // UI vars
     private Animator _pauseAnimator;
     [SerializeField]
@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public int gameScore;
     public int maxScore;
     private int controls;
+    int s;
     private AudioSource _gameScoreAudio, _maxScoreAudio;
 
     void Awake() 
@@ -53,12 +54,13 @@ public class GameManager : MonoBehaviour
         currentScoreText.text = "0";
         //gameScoreText.text = "0";
         //maxScoreText.text = string.Format("{0}", maxScore);
+        iniciarTimer();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        velocidadjuego();
     }
 
     // Pause game and show pause menu
@@ -120,5 +122,26 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("maxScore", 0);
     }
 
+    //Funcion para aumentar la velocidad del juego
+    public void velocidadjuego(){
+        float velocidadInicial= 4;
+
+        velocidadObstaculos=velocidadInicial+(s/25);
+        velocidadPlayer=10+(s/25);
+    }
+
+    public void iniciarTimer(){
+        Invoke("actualizarTimer",1f);
+    }
+
+    public void detenerTimer(){
+        CancelInvoke();
+    }
+
+    public void actualizarTimer(){
+        s++;
+        Invoke("actualizarTimer",1f);
+
+    }
 
 }

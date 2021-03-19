@@ -50,7 +50,9 @@ public class MapController : MonoBehaviour
                 if (creandoAletario == false)                                                       //Si no esta creando un obstaculo...
                 {
                     creandoAletario = true;                                                         //Indica que se esta creando un obstaculo
-                    StartCoroutine(ObstaculosAleatorios(1));                                        //Empezar un hilo para crear un obstaculo
+                    Invoke("ObstaculosAleatorios",1);                                        //Empezar un hilo para crear un obstaculo
+
+                    //StartCoroutine(ObstaculosAleatorios(1));                                        //Empezar un hilo para crear un obstaculo
                 }
             }
         }
@@ -102,17 +104,14 @@ public class MapController : MonoBehaviour
         return false;
     }
 
-    IEnumerator ObstaculosAleatorios(float tiempo)
+    public void ObstaculosAleatorios()
     {
-        for (float t = Time.time; Time.time - t < tiempo;)                                                //tiempo que tarda en no hacer nada
-            yield return null;
-        GameObject obstaculo =Instantiate(Obstaculo, new Vector3(Random.Range(-3, 3), -6, 0), Quaternion.identity,aleatorios.transform);
+
+        GameObject obstaculo = Instantiate(Obstaculo, new Vector3(Random.Range(-3, 3), -6, 0), Quaternion.identity,aleatorios.transform);
         obstaculo.SetActive(true);
         obstaculo.GetComponent<Obstaculo>().aleatorio = true;
         creandoAletario = false;
-        yield return null;
-
-
+        
     }
 
 }

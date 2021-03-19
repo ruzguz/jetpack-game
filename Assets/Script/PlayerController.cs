@@ -1,10 +1,11 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D fisica;
-    public int fuerza, desplazamiento, rotacion;
+    public int fuerza, rotacion;
+    public float desplazamiento;
     public GameObject imagen;
     public Animator Personaje, CoheteDerecho, CoheteIzquierdo, Camera;
     static int MaxRotIzquierda = 38, MaxRotaDerecha = -MaxRotIzquierda; //la maxima rotacion que tiene el Jetpack
@@ -15,21 +16,28 @@ public class PlayerController : MonoBehaviour
     public int MaxPosicion;
 
 
+    public GameObject GameManager;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
+        GameManager = GameObject.Find("GameManager");
         fisica = GetComponent<Rigidbody2D>();
         Personaje = gameObject.transform.GetChild(0).GetComponent<Animator>();
         CoheteDerecho = gameObject.transform.GetChild(0).gameObject.transform.GetChild(0).GetComponent<Animator>();
         CoheteIzquierdo = gameObject.transform.GetChild(0).gameObject.transform.GetChild(1).GetComponent<Animator>();
         vida=5;
+        desplazamiento=1;
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        
+        desplazamiento=GameManager.GetComponent<GameManager>().velocidadPlayer;
+        Debug.Log("velocidad Player " +desplazamiento);
         if (Input.GetKey("a") || Input.GetKey("d"))                                                                         //cuando preciona alguna palanca....
         {
             if (transform.position.y < MaxPosicion)                                                                         //si su posicion es menor a la altura maxima permitida...

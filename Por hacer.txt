@@ -24,7 +24,9 @@ Mejorar la generacion de bloques
 
 Limpiar los codigos
 
-cambiar el sprite del personaje si logolpean
-
 crearun marco que se va poniendo azul si lo golpea
+
+
+verificar que el timer se pare cuando se pare el juego
+
 
