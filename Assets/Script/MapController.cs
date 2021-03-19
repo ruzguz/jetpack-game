@@ -22,7 +22,6 @@ public class MapController : MonoBehaviour
 
         if (estaPrimerPlano(bloqueTrasero))                                                         //Si el bloque trasero pasa totalmente a primer plano...
         {
-
             indiceFrontal = indiceTrasero;                                                          //indiceFrontal es igual a IndiceTrasero
             while (indiceTrasero == indiceFrontal)                                                  //Mientras indiceTrasero sea igual a indiceFrontal
                 indiceTrasero = Random.Range(0, transform.childCount);                              //Asigna un indice al azar a indiceTrasero
@@ -32,8 +31,6 @@ public class MapController : MonoBehaviour
                 bloqueFrontal = gameObject.transform.GetChild(indiceFrontal).gameObject;            
                 bloqueTrasero = null;
             }        
-            
-
             
             if(bloqueTrasero==null)
             bloqueTrasero = gameObject.transform.GetChild(indiceTrasero).gameObject;
@@ -50,9 +47,7 @@ public class MapController : MonoBehaviour
                 if (creandoAletario == false)                                                       //Si no esta creando un obstaculo...
                 {
                     creandoAletario = true;                                                         //Indica que se esta creando un obstaculo
-                    Invoke("ObstaculosAleatorios",1);                                        //Empezar un hilo para crear un obstaculo
-
-                    //StartCoroutine(ObstaculosAleatorios(1));                                        //Empezar un hilo para crear un obstaculo
+                    Invoke("ObstaculosAleatorios",1f);                                        //Empezar un hilo para crear un obstaculo
                 }
             }
         }
@@ -68,7 +63,6 @@ public class MapController : MonoBehaviour
         }
         if (bloque.activeSelf == false)                                                             //Si el Bloque de obstaculos no esta activado...
             bloque.SetActive(true);                                                                 //activa el bloque de obstaculos
-
     }
 
     bool estaPrimerPlano(GameObject bloque)                                                          //Verificar si el bloque tiene algun hijo en segundo plano
@@ -106,6 +100,7 @@ public class MapController : MonoBehaviour
 
     public void ObstaculosAleatorios()
     {
+        Debug.Log("Aleatorio");
 
         GameObject obstaculo = Instantiate(Obstaculo, new Vector3(Random.Range(-3, 3), -6, 0), Quaternion.identity,aleatorios.transform);
         obstaculo.SetActive(true);

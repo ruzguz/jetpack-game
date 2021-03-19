@@ -1,22 +1,11 @@
 
-Agregar obstaculos entre bloques de obstaculos
-	posible solucion:
-
-
-
-
 motivo por el cual corre
 
 animacion del principio no hacer
 
-
 modificar el tamnao de los controles
 
 
-
-
-
-Agregar velocidad escalable al personaje
 
 Crear el disparo del marciano 
 
@@ -25,7 +14,6 @@ Mejorar la generacion de bloques
 Limpiar los codigos
 
 crearun marco que se va poniendo azul si lo golpea
-
 
 verificar que el timer se pare cuando se pare el juego
 

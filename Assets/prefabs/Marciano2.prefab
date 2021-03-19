@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 3142834145993305474}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.7063475, y: -1.5202484, z: 1}
-  m_LocalScale: {x: 2, y: 2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 0}
   m_Children:
   - {fileID: 5406506417788056612}
   m_Father: {fileID: 0}
@@ -45,11 +45,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0048033bd2448224dba83f8321dd302a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GameManager: {fileID: 0}
   puntoDeAparicion: 0
   puntoD: 1
   puntoI: -1
   tamano: 0
+  vida: 0
   seMueveLateral: 1
+  lanzador: 0
+  aleatorio: 0
+  velocidadDown: 0
 --- !u!58 &2172542184343570944
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -65,7 +70,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.20496683
+  m_Radius: 0.14366542
 --- !u!1 &4459904404026737657
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,7 +97,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4459904404026737657}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.95, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3142834145993305473}

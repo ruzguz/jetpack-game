@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 7962873512872824097}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.3, y: 4.5, z: 1}
-  m_LocalScale: {x: 2, y: 2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 0}
   m_Children:
   - {fileID: 1016578443747300487}
   m_Father: {fileID: 0}
@@ -45,11 +45,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0048033bd2448224dba83f8321dd302a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GameManager: {fileID: 0}
   puntoDeAparicion: 0
   puntoD: 1
   puntoI: -1
   tamano: 0
+  vida: 0
   seMueveLateral: 1
+  lanzador: 0
+  aleatorio: 0
+  velocidadDown: 0
 --- !u!58 &-2649748396128507229
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -65,7 +70,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.20496683
+  m_Radius: 0.18453133
 --- !u!1 &8716887680445981530
 GameObject:
   m_ObjectHideFlags: 0

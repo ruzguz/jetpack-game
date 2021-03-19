@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 
     // Singleton
     public static GameManager sharedInstance;
-    public float velocidadObstaculos, velocidadPlayer;
+    public float velocidadObstaculos, velocidadPlayer,velocidadEstrellas;
     // UI vars
     private Animator _pauseAnimator;
     [SerializeField]
@@ -20,8 +20,10 @@ public class GameManager : MonoBehaviour
     public int gameScore;
     public int maxScore;
     private int controls;
-    int s;
+    public int s;
     private AudioSource _gameScoreAudio, _maxScoreAudio;
+
+    GameObject Player;
 
     void Awake() 
     {
@@ -32,6 +34,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Player= GameObject.Find("Player");
+
         // Singleton validation
         if (sharedInstance == null) 
         {
@@ -124,10 +128,23 @@ public class GameManager : MonoBehaviour
 
     //Funcion para aumentar la velocidad del juego
     public void velocidadjuego(){
+
+
         float velocidadInicial= 4;
 
-        velocidadObstaculos=velocidadInicial+(s/25);
-        velocidadPlayer=10+(s/25);
+        velocidadObstaculos=(float)velocidadInicial+(s/5);
+        velocidadPlayer=(float)10+(s/5);
+        velocidadEstrellas=(float)1+(s/5);
+
+        if (Player.GetComponent<PlayerController>().vida<=0){
+            CancelInvoke();
+            s=0;
+            velocidadObstaculos=0.5f;
+            velocidadPlayer=1f;
+            velocidadEstrellas=0.1f;
+            Player.GetComponent<Collider2D>().enabled=false;
+
+        }
     }
 
     public void iniciarTimer(){

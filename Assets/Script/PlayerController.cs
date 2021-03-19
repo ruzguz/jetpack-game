@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     public GameObject imagen;
     public Animator Personaje, CoheteDerecho, CoheteIzquierdo, Camera;
     static int MaxRotIzquierda = 38, MaxRotaDerecha = -MaxRotIzquierda; //la maxima rotacion que tiene el Jetpack
-    int vida;
+    public int vida;
     public int posMin;
     public float tiempoParticula;
     public GameObject ParticulaIzq, ParticulaDer;
@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
         Personaje = gameObject.transform.GetChild(0).GetComponent<Animator>();
         CoheteDerecho = gameObject.transform.GetChild(0).gameObject.transform.GetChild(0).GetComponent<Animator>();
         CoheteIzquierdo = gameObject.transform.GetChild(0).gameObject.transform.GetChild(1).GetComponent<Animator>();
-        vida=5;
+        vida=1;
         desplazamiento=1;
     }
 
@@ -36,35 +36,39 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        desplazamiento=GameManager.GetComponent<GameManager>().velocidadPlayer;
-        Debug.Log("velocidad Player " +desplazamiento);
-        if (Input.GetKey("a") || Input.GetKey("d"))                                                                         //cuando preciona alguna palanca....
-        {
-            if (transform.position.y < MaxPosicion)                                                                         //si su posicion es menor a la altura maxima permitida...
-                if (Input.GetKey("a") && Input.GetKey("d"))
-                    fisica.AddRelativeForce(transform.up * (fuerza) * Time.deltaTime, ForceMode2D.Force);                         //Dar fuerza hacia arriba
-                else
-                    fisica.AddRelativeForce(transform.up * (fuerza/2) * Time.deltaTime, ForceMode2D.Force);                         //Dar fuerza hacia arriba
 
+        if (vida<=0){
+            muerto();
         }
+        else{
+            desplazamiento=GameManager.GetComponent<GameManager>().velocidadPlayer;
+            if (Input.GetKey("a") || Input.GetKey("d"))                                                                         //cuando preciona alguna palanca....
+            {
+                if (transform.position.y < MaxPosicion)                                                                         //si su posicion es menor a la altura maxima permitida...
+                    if (Input.GetKey("a") && Input.GetKey("d"))
+                        fisica.AddRelativeForce(transform.up * (fuerza) * Time.deltaTime, ForceMode2D.Force);                         //Dar fuerza hacia arriba
+                    else
+                        fisica.AddRelativeForce(transform.up * (fuerza/2) * Time.deltaTime, ForceMode2D.Force);                         //Dar fuerza hacia arriba
+            }
 
-        //Movimiento del Personaje
-        if (Input.GetKey("a"))
-            IniciarCoheteIzquierdo();
-        if (Input.GetKey("d"))
-            IniciarCoheteDerecho();
+            //Movimiento del Personaje
+            if (Input.GetKey("a"))
+                IniciarCoheteIzquierdo();
+            if (Input.GetKey("d"))
+                IniciarCoheteDerecho();
 
-        if ((int)(imagen.transform.localRotation.z * 100) < 0)                                                             //automaticamente debe ir corrigiendo su rotacion para que se endereze solo 
-            imagen.transform.Rotate(new Vector3(0, 0, rotacion / 3 * Time.deltaTime));
+            if ((int)(imagen.transform.localRotation.z * 100) < 0)                                                             //automaticamente debe ir corrigiendo su rotacion para que se endereze solo 
+                imagen.transform.Rotate(new Vector3(0, 0, rotacion / 3 * Time.deltaTime));
 
-        if ((int)(imagen.transform.localRotation.z * 100) >= 0)
-            imagen.transform.Rotate(new Vector3(0, 0, -rotacion / 3 * Time.deltaTime));
+            if ((int)(imagen.transform.localRotation.z * 100) >= 0)
+                imagen.transform.Rotate(new Vector3(0, 0, -rotacion / 3 * Time.deltaTime));
+            
+            if (transform.position.y < posMin)                                                                                  //si el personaje esta abajo de la posicion minima...
+            {
+                fisica.AddRelativeForce(transform.up * fuerza * Time.deltaTime, ForceMode2D.Force);                             //entonces sube activando los cohetes hasta 1/4 de la pantalla 
+                IniciarCoheteIzquierdo(); IniciarCoheteDerecho();
+            }
 
-        
-        if (transform.position.y < posMin)                                                                                  //si el personaje esta abajo de la posicion minima...
-        {
-            fisica.AddRelativeForce(transform.up * fuerza * Time.deltaTime, ForceMode2D.Force);                             //entonces sube activando los cohetes hasta 1/4 de la pantalla 
-            IniciarCoheteIzquierdo(); IniciarCoheteDerecho();
         }
     }
 
@@ -114,15 +118,14 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.tag == "Roca")                                                                                        //si colisiona con una roca
         {
-           
             golpe();
-            if (vida==0)
+            if (vida<=0)
                 morir(2);
-                                     
-
         }
-        if (collision.tag == "Marciano")                                                                                        //si colisiona con un marciano
+        if (collision.tag == "Marciano") {                                                                                       //si colisiona con un marciano
+            golpe();
             morir(1);
+        }
     }
     void golpe(){
         Personaje.SetTrigger("takeDamage");
@@ -142,7 +145,19 @@ public class PlayerController : MonoBehaviour
         if (tipo==2)//murio por asteroide
             Personaje.SetTrigger("freeze");        
         else
-            Personaje.SetTrigger("die");        
+            Personaje.SetTrigger("die");  
+
+    }
+
+    void muerto(){
+        GetComponent<Rigidbody2D>().gravityScale=0;
+        desplazamiento=0;
+        imagen.transform.Rotate(new Vector3(0, 0, 4* Time.deltaTime));                                           //rota en sentido del contrario al reloj
+
+        fisica.AddRelativeForce(transform.up* 0.5f * Time.deltaTime, ForceMode2D.Force);                             //entonces sube activando los cohetes hasta 1/4 de la pantalla 
+
+
+
 
     }
 }

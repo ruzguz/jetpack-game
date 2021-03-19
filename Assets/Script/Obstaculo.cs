@@ -23,7 +23,7 @@ public class Obstaculo : MonoBehaviour
         actualizarVelocidad();                                                        //La velocidad de movimiento lateral es igual al de bajada
         vida = 5;
         velocidadDown = 1;                                                                                  //Se inicializan las variables
-        tamanoMaximo = 2;
+        tamanoMaximo = 1.5f;
         alturaMaxima = 6;
         alturaMin = -alturaMaxima;
         velocidadUp = velocidadDown / 2;
@@ -37,6 +37,9 @@ public class Obstaculo : MonoBehaviour
             velocidadRotacion = Random.Range(50, 100);
         else
             velocidadRotacion = Random.Range(-50, -100);
+
+                    //if (aleatorio==true)
+        //Debug.Log("Aleatorio");
 
     }
 
@@ -139,16 +142,14 @@ public class Obstaculo : MonoBehaviour
             GameObject.Find("GameManager").GetComponent<GameManager>().IncreaseScore(69);
             gameObject.SetActive(false);
             if (aleatorio == true)
-            {
                 Destroy(gameObject);
-            }
         }
     }
 
     void actualizarVelocidad(){
         velocidadDown = GameManager.GetComponent<GameManager>().velocidadObstaculos;
         velocidadUp = velocidadDown / 2;
-        velocidadLateral = velocidadDown/2;                                                          //La velocidad de movimiento lateral es igual al de bajada
+        velocidadLateral = velocidadDown/6;                                                        
 
     }
 
